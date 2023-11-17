@@ -25,9 +25,9 @@ class Graph:
                 return node
         return None
 
-    ##############################3
+    ############################
     #   imprimir arestas
-    ############################333333
+    ############################
 
     def imprime_aresta(self):
         listaA = ""
@@ -39,7 +39,7 @@ class Graph:
 
     ################
     #   adicionar   aresta no grafo
-    ######################
+    ################
 
     def add_edge(self, node1, node2, weight):
         n1 = Node(node1)
@@ -62,16 +62,16 @@ class Graph:
               self.m_graph[node2].append((node1, weight))
 
 
-    #############################
+    ##########################
     # devolver nodos
     ##########################
 
     def getNodes(self):
         return self.m_nodes
 
-    #######################
+    ##############
     #    devolver o custo de uma aresta
-    ##############3
+    ##############
 
     def get_arc_cost(self, node1, node2):
         custoT = math.inf
@@ -84,7 +84,7 @@ class Graph:
 
     ##############################
     #  dado um caminho calcula o seu custo
-    ###############################
+    ##############################
 
     def calcula_custo(self, caminho):
         # caminho é uma lista de nodos
@@ -99,7 +99,7 @@ class Graph:
 
     ###########################
     # desenha grafo  modo grafico
-    #########################
+    ###########################
 
     def desenha(self):
         ##criar lista de vertices
@@ -119,9 +119,9 @@ class Graph:
         plt.draw()
         plt.show()
         
-    ####################################33
+    ####################################
     #    add_heuristica   -> define heuristica para cada nodo 
-    ################################
+    ####################################
 
     def add_heuristica(self, n, estima):
         n1 = Node(n)
