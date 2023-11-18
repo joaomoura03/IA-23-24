@@ -1,17 +1,19 @@
 from Grafo import Graph
+import csv
+from csvfunction import csvfunction
 
 def main():
     g = Graph()
 
     #Mapa 1
-    # g.add_edge("Avenida São Pedro", "Rua da Laje", 357)
-    # g.add_edge("Rua da Laje", "Rua das Forças Armadas", 120)
-    # g.add_edge("Rua das Forças Armadas", "Beco dos Unidos", 281)
-    # g.add_edge("Rua das Forças Armadas", "Rua dos Padrões", 400)
-    # g.add_edge("Rua das Forças Armadas", "Avenida São Pedro", 93)
-    # g.add_edge("Rua dos Padrões", "Rua da Laje", 123)
-    # g.add_edge("Avenida São Pedro", "Rua Humberto Delgado", 40)
-    # g.add_edge("Rua Humberto Delgado", "Rua da Laje", 40)
+    g.add_edge("Avenida São Pedro", "Rua da Laje", 357)
+    g.add_edge("Rua da Laje", "Rua das Forças Armadas", 120)
+    g.add_edge("Rua das Forças Armadas", "Beco dos Unidos", 281)
+    g.add_edge("Rua das Forças Armadas", "Rua dos Padrões", 400)
+    g.add_edge("Rua das Forças Armadas", "Avenida São Pedro", 93)
+    g.add_edge("Rua dos Padrões", "Rua da Laje", 123)
+    g.add_edge("Avenida São Pedro", "Rua Humberto Delgado", 40)
+    g.add_edge("Rua Humberto Delgado", "Rua da Laje", 40)
 
 
     #Mapa 2
@@ -49,15 +51,43 @@ def main():
     saida = -1
     while saida != 0:
         print("\n1-Desenha Grafo(Mapa)")
-        print("2-Fazer encomenda")
+        print("2-Imprime entregas")
+        print("3-Imprime ranking")
+        print("4-Simular encomendas")
         print("0-Saír")
 
         saida = int(input("\nIntroduza a sua opção "))
         if saida == 0:
             print("A sair\n")
+
         elif saida == 1:
+            #Desenha
             g.desenha()
 
+        elif saida == 2:
+            #Imprime entregas
+            with open('csv/entregas.csv', 'r') as entrega_csv:
+                leitor_csv = csv.reader(entrega_csv)
+                for linha in leitor_csv:
+                    print(linha)
+
+        elif saida == 3:
+            #Imprime ranking
+            with open('csv/ranking.csv', 'r') as ranking_csv:
+                leitor_csv = csv.reader(ranking_csv)
+                for linha in leitor_csv:
+                    print(linha)
+        
+        elif saida == 4:
+            #Encomenda
+            print("\n0-Sair")
+            line = int(input("Introduza número da linha"))
+            
+            if line == 0:
+                print("A sair\n")
+            
+            else:
+                csvfunction.altera_tempo(line)
 
 if __name__ == "__main__":
     main()
