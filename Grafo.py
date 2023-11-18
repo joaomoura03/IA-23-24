@@ -127,3 +127,19 @@ class Graph:
         n1 = Node(n)
         if n1 in self.m_nodes:
             self.m_h[n] = estima
+
+
+    def procura_DFS(self, start, end, path=[], visited=set()):
+        path.append(start)
+        visited.add(start)
+
+        if start == end:
+            custoT = self.calcula_custo(path)
+            return (path, custoT)
+        for (adjacente, peso) in self.m_graph[start]:
+            if adjacente not in visited:
+                resultado = self.procura_DFS(adjacente, end, path, visited)
+                if resultado is not None:
+                    return resultado
+        path.pop()
+        return None
