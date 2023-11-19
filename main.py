@@ -1,5 +1,4 @@
 from Grafo import Graph
-import csv
 from csvfunction import csvfunction
 
 def main():
@@ -66,17 +65,11 @@ def main():
 
         elif saida == 2:
             #Imprime entregas
-            with open('csv/entregas.csv', 'r') as entrega_csv:
-                leitor_csv = csv.reader(entrega_csv)
-                for linha in leitor_csv:
-                    print(linha)
+            csvfunction.print_delivery()
 
         elif saida == 3:
             #Imprime ranking
-            with open('csv/ranking.csv', 'r') as ranking_csv:
-                leitor_csv = csv.reader(ranking_csv)
-                for linha in leitor_csv:
-                    print(linha)
+            csvfunction.print_ranking()
         
         elif saida == 4:
             #Encomenda
