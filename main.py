@@ -74,9 +74,10 @@ def main():
         elif saida == 4:
             #Encomenda
             print("\n0-Sair")
-            line = int(input("Introduza número da linha de encomenda "))
+            line = input("Introduza número da linha de encomenda ")
+            print(f"line {line}")
             
-            if line == 0:
+            if line == '0':
                 print("A sair\n")
             
             else:
@@ -93,8 +94,11 @@ def main():
                 
                 elif search == 2:
                     #Procura DFS
-                    print(g.procura_DFS(csvfunction.search_start(line), csvfunction.search_end(line),
-                                        path=[], visited=set()))
+                    result = g.procura_DFS(csvfunction.search_start(line), csvfunction.search_end(line), 
+                                        path=[], visited=set())
+                    print(result)
+                    
+                    print(csvfunction.time_of_travel(line, result[1]))
 
 if __name__ == "__main__":
     main()

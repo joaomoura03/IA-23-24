@@ -8,21 +8,22 @@ class csvfunction:
     def print_delivery():
         with open('csv/delivery.csv', 'r') as entrega_csv:
             leitor_csv = csv.reader(entrega_csv)
-            for linha in leitor_csv:
-                print(linha)
+            for row in leitor_csv:
+                print(row)
 
     def print_ranking():
         with open('csv/ranking.csv', 'r') as ranking_csv:
             leitor_csv = csv.reader(ranking_csv)
-            for linha in leitor_csv:
-                print(linha)
+            for row in leitor_csv:
+                print(row)
+
 
     def altera_tempo(line):
         #Imprime linha a alterar
         with open('csv/delivery.csv', 'r') as delivery_csv:
-            reader_csv = csv.reader(delivery_csv)
-            for current_line_number, row in enumerate(delivery_csv, start=0):
-                if current_line_number == line:
+            reader_csv = csv.reader(delivery_csv, delimiter=',')
+            for row in reader_csv:
+                if row[0] == line:
                     print(f"Line {line}: {row}")
         
         #Altera o tempo
@@ -30,12 +31,10 @@ class csvfunction:
         lines_csv = []
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
-            for linha in reader_csv:
-                lines_csv.append(linha)
-        if 0 < line <= len(lines_csv):
-            lines_csv[line][6] = str(tempo)
-        else:
-            print(f"Linha {line} não existe no arquivo CSV.")
+            for row in reader_csv:
+                if row[0] == line:
+                    row[6] = str(tempo)
+                lines_csv.append(row)
 
         with open('csv/delivery.csv', 'w', newline='') as delivery_csv:
             writer_csv = csv.writer(delivery_csv)
@@ -44,32 +43,33 @@ class csvfunction:
 
     
     def search_start(line):
-        lines_csv = []
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
-            for linha in reader_csv:
-                lines_csv.append(linha)
-            
-            return lines_csv[line][4]
+            for row in reader_csv:
+                if row[0] == line:
+                    line_row = row[4]
+                    return line_row
+                
+        print("Linha não existe")
         
 
     def search_end(line):
-        lines_csv = []
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
-            for linha in reader_csv:
-                lines_csv.append(linha)
-            
-            return lines_csv[line][5]
+            for row in reader_csv:
+                if row[0] == line:
+                    line_row = row[5]
+                    return line_row
+                
+        print("Linha não existe")
         
 
-    def time_of_travel(line):
-        lines_csv = []
-        time = 0
+    def time_of_travel(line, cost):
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
-            for linha in reader_csv:
-                lines_csv.append(linha)
+            for row in reader_csv:
+                if row[0] == line:
+                    if row[2] == 'Carro':
+                        final_cost = (cost/1000) * (50 - 0.1 * float(row[3]))
 
-        if lines_csv[2] == 'Carro':
-            time == Graph.calcula_custo()
+                        return final_cost
