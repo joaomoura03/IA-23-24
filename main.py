@@ -1,13 +1,12 @@
 import sys
 
-
 from Grafo import Graph
 from csvfunction import csvfunction
 
 # TODO change how to calculate the time to the local
 
 #se for para criar encomendas:
-#   cliente poe primeiro e ultimo sitio e tempo limite
+#   cliente poe primeiro e ultimo sitio e tempo limite e peso da encomenda
 #   sistema vê o caminho mais ecológico e calcula tempo médio
 #   sistema dá um estafeta atoa e pôe um veículo possível (que consiga entregar a tempo)
 
@@ -70,9 +69,9 @@ def main():
         print("\n1-Desenha Grafo (Mapa)")
         print("2-Imprime entregas")
         print("3-Imprime ranking")
-        print("4-Simular encomendas")
-        print("5-Criar estafeta")
-        print("6-Criar encomenda")
+        print("4-Criar estafeta")
+        print("5-Criar encomenda")
+        print("6-Simular encomendas")
         print("0-Saír")
 
         saida = int(input("\nIntroduza a sua opção "))
@@ -91,16 +90,15 @@ def main():
             #Imprime ranking
             csvfunction.print_ranking()
         
-        elif saida == 4:
+        elif saida == 6:
             #Encomenda
-            print("\n0-Sair")
-            line = input("Introduza número da linha de encomenda ")
+            line = input("\nIntroduza número da linha de encomenda ")
+            print("0-Sair")
             
             if line == '0':
                 print("A sair\n")
             
             else:
-                csvfunction.altera_tempo(line)
 
                 print("\n1-Greedy (Informada)")
                 print("2-DFS (Não informada)")
@@ -117,19 +115,23 @@ def main():
                     result = g.procura_DFS(csvfunction.search_start(line), csvfunction.search_end(line), 
                                         path=[], visited=set())
                     print(result)
-                    
                     print(csvfunction.time_of_travel(line, result[1]))
+
+                    csvfunction.rank_courier(line)
 
                 elif search == 3:
+                    #Procura BFS
                     result = g.procura_BFS(csvfunction.search_start(line), csvfunction.search_end(line))
                     print(result)
-
                     print(csvfunction.time_of_travel(line, result[1]))
 
-        elif saida == 5:
+            
+        elif saida == 4:
+            #Cria estafeta
             csvfunction.create_courier()
 
-        elif saida == 6:
+        elif saida == 5:
+            #Cria encomenda
             csvfunction.create_order()
 
 if __name__ == "__main__":
