@@ -64,12 +64,22 @@ class csvfunction:
         print("Linha não existe")
         
 
-    def time_of_travel(line, cost):
+    ####################################
+    #    calcula tempo de viagem -> consudera custo como metros(alterar)
+    ####################################
+    def time_of_travel(line, consumo):
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
             for row in reader_csv:
                 if row[0] == line:
                     if row[2] == 'Carro':
-                        final_cost = (cost/1000) * (50 - 0.1 * float(row[3]))
-
-                        return final_cost
+                        final_time = (consumo/1000) * (50 - 0.1 * float(row[3]))
+                        return final_time
+                    
+                    if row[2] == 'Moto':
+                        final_time = (consumo/1000) * (35 - 0.5 * float(row[3]))
+                        return final_time
+                    
+                    if row[2] == 'Bicicleta':
+                        final_time = (consumo/1000) * (10 - 0.6 * float(row[3]))
+                        return final_time
