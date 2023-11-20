@@ -6,6 +6,16 @@ from csvfunction import csvfunction
 
 # TODO change how to calculate the time to the local
 
+#se for para criar encomendas:
+#   cliente poe primeiro e ultimo sitio e tempo limite
+#   sistema vê o caminho mais ecológico e calcula tempo médio
+#   sistema dá um estafeta atoa e pôe um veículo possível (que consiga entregar a tempo)
+
+
+# TODO (final) calcular o caminho com base no consumo do veículo para ver o mais ecológico
+#   ou seja: um caminho pode ser mais ecologico mas a bicicleta nao chega a tempo, e a mota consegue
+#   mas outro caminho menos ecologico que a bicicleta consiga alcancar pode obter um consumo total inferior
+
 def populate_graph(g, map):
     if (map == '1'):
         g.add_edge("Avenida São Pedro", "Rua da Laje", 357)
@@ -61,6 +71,8 @@ def main():
         print("2-Imprime entregas")
         print("3-Imprime ranking")
         print("4-Simular encomendas")
+        print("5-Criar estafeta")
+        print("6-Criar encomenda")
         print("0-Saír")
 
         saida = int(input("\nIntroduza a sua opção "))
@@ -92,6 +104,7 @@ def main():
 
                 print("\n1-Greedy (Informada)")
                 print("2-DFS (Não informada)")
+                print("3-BFS (Não informada)")
                 print("0-Sair")
 
                 search = int(input("\nQual é o algoritmo que deseja utilizar "))
@@ -106,6 +119,18 @@ def main():
                     print(result)
                     
                     print(csvfunction.time_of_travel(line, result[1]))
+
+                elif search == 3:
+                    result = g.procura_BFS(csvfunction.search_start(line), csvfunction.search_end(line))
+                    print(result)
+
+                    print(csvfunction.time_of_travel(line, result[1]))
+
+        elif saida == 5:
+            csvfunction.create_courier()
+
+        elif saida == 6:
+            csvfunction.create_order()
 
 if __name__ == "__main__":
     main()
