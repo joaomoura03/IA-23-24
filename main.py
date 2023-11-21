@@ -56,9 +56,6 @@ def populate_graph(g, map):
         g.add_edge("Valdosende", "Vilar da Veiga", 1)
         g.add_edge("Vilar da Veiga", "Balança", 1)
 
-    else:
-        print("Mapa não existe")  
-
 
 def main():
     g = Graph()
@@ -74,7 +71,7 @@ def main():
         print("6-Simular encomendas")
         print("0-Saír")
 
-        saida = int(input("\nIntroduza a sua opção "))
+        saida = int(input("\nIntroduza a sua opção: "))
         if saida == 0:
             print("A sair\n")
 
@@ -92,7 +89,7 @@ def main():
         
         elif saida == 6:
             #Encomenda
-            line = input("\nIntroduza número da linha de encomenda ")
+            line = input("\nIntroduza número da linha de encomenda: ")
             print("0-Sair")
             
             if line == '0':
@@ -105,7 +102,7 @@ def main():
                 print("3-BFS (Não informada)")
                 print("0-Sair")
 
-                search = int(input("\nQual é o algoritmo que deseja utilizar "))
+                search = int(input("\nQual é o algoritmo que deseja utilizar: "))
 
                 if search == 0:
                     print("A sair\n")
@@ -117,13 +114,29 @@ def main():
                     print(result)
                     print(csvfunction.time_of_travel(line, result[1]))
 
-                    csvfunction.rank_courier(line)
+                    checktime = csvfunction.check_time(line,result[1])
+
+                    if checktime == True:
+                        rank_deduction = 0
+                    else:
+                        rank_deduction = 0.5
+
+                    csvfunction.rank_courier(line, rank_deduction)
 
                 elif search == 3:
                     #Procura BFS
                     result = g.procura_BFS(csvfunction.search_start(line), csvfunction.search_end(line))
                     print(result)
                     print(csvfunction.time_of_travel(line, result[1]))
+
+                    checktime = csvfunction.check_time(line,result[1])
+
+                    if checktime == True:
+                        rank_deduction = 0
+                    else:
+                        rank_deduction = 0.5
+
+                    csvfunction.rank_courier(line, rank_deduction)
 
             
         elif saida == 4:
