@@ -20,6 +20,14 @@ def populate_graph(g, map):
         g.add_edge("Avenida São Pedro", "Rua Humberto Delgado", 4.0)
         g.add_edge("Rua Humberto Delgado", "Rua da Laje", 4.0)
 
+        #Para a heurística foi considerado a distância em linha reta até á rua mais central (Rua da Laje)
+        g.add_heuristica("Beco dos Unidos", 37.6)
+        g.add_heuristica("Rua das Forças Armadas", 11.5)
+        g.add_heuristica("Rua dos Padrões", 12.0)
+        g.add_heuristica("Rua da Laje", 0)
+        g.add_heuristica("Avenida São Pedro", 34.9)
+        g.add_heuristica("Rua Humberto Delgado", 4.0)
+
     elif (map == '2'):
         g.add_edge("Avenida São Pedro", "Rua da Laje", 35.7)
         g.add_edge("Rua da Laje", "Rua das Forças Armadas", 12.0)
@@ -33,6 +41,17 @@ def populate_graph(g, map):
         g.add_edge("Rua Nova de Santa Cruz", "Rua de Pesqueiras", 63.1)
         g.add_edge("Rua de Pesqueiras", "Rua do Paço", 5.5)
         g.add_edge("Rua do Paço", "Avenida São Pedro", 6.0)
+
+        #Para a heurística foi considerado a distância em linha reta até á rua mais central (Rua da Laje)
+        g.add_heuristica("Beco dos Unidos", 37.6)
+        g.add_heuristica("Rua das Forças Armadas", 11.5)
+        g.add_heuristica("Rua dos Padrões", 12.0)
+        g.add_heuristica("Rua da Laje", 0)
+        g.add_heuristica("Avenida São Pedro", 34.9)
+        g.add_heuristica("Rua Humberto Delgado", 4.0)
+        g.add_heuristica("Rua do Paço", 6.0)
+        g.add_heuristica("Rua de Pesqueiras", 34.3)
+        g.add_heuristica("Rua Nova de Santa Cruz", 94.4)
         
     elif (map == '3'):
         g.add_edge("Balança", "Campo do Gerês", 1)
@@ -65,10 +84,24 @@ def populate_graph(g, map):
         g.add_edge("Rua do Paço", "Avenida São Pedro", 6.0)
         g.add_edge("Rua do Paço", "Rua das Forças Armadas", 11.5)
         g.add_edge("Rua das Forças Armadas", "Avenida José Afonso", 49.4)
-        g.add_edge("Avenida Jośe Afonso", "Rua do Seixal", 3.2)
         g.add_edge("Rua do Seixal", "Rua das Forças Armadas", 6.7)
         g.add_edge("Rua do Seixal", "Travessa Dom Lopes", 8.8)
         g.add_edge("Rua do Seixal", "Rua dos Padrões", 8.9)
+
+        #Para a heurística foi considerado a distância em linha reta até á rua mais central (Rua da Laje)
+        g.add_heuristica("Beco dos Unidos", 37.6)
+        g.add_heuristica("Rua das Forças Armadas", 11.5)
+        g.add_heuristica("Rua dos Padrões", 12.0)
+        g.add_heuristica("Rua da Laje", 0)
+        g.add_heuristica("Avenida São Pedro", 34.9)
+        g.add_heuristica("Rua Humberto Delgado", 4.0)
+        g.add_heuristica("Rua do Paço", 6.0)
+        g.add_heuristica("Rua de Pesqueiras", 34.3)
+        g.add_heuristica("Rua Nova de Santa Cruz", 94.4)
+        g.add_heuristica("Avenida José Afonso", 46.6)
+        g.add_heuristica("Rua do Seixal", 15.9)
+        g.add_heuristica("Travessa Dom Lopes", 23.5)
+
 
 
 def main():
@@ -112,8 +145,9 @@ def main():
             else:
 
                 print("\n1-Greedy (Informada)")
-                print("2-DFS (Não informada)")
-                print("3-BFS (Não informada)")
+                print("2-A* (Informada)")
+                print("3-DFS (Não informada)")
+                print("4-BFS (Não informada)")
                 print("0-Sair")
 
                 search = int(input("\nQual é o algoritmo que deseja utilizar: "))
@@ -121,8 +155,51 @@ def main():
 
                 if search == 0:
                     print("A sair\n")
-                
+
+                elif search == 1:
+                    result = g.greedy(csvfunction.search_start(line), csvfunction.search_end(line))
+
+                    print(f"Caminho: {result[0]}")
+                    print(f"Distância: {result[1]}")
+
+                    time_of_travel = csvfunction.time_of_travel(line, result[1])
+
+                    print(f"Tempo que demorou em minutos: {time_of_travel}")
+
+                    checktime = csvfunction.check_time(line,time_of_travel)
+
+                    if checktime == True:
+                        rank_deduction = 0.0
+                    else:
+                        rank_deduction = 0.5
+
+                    rank = csvfunction.rank_courier(line, rank_deduction)
+
+                    csvfunction.deliver(line, time_of_travel, rank)
+
                 elif search == 2:
+
+                    result = g.procura_aStar(csvfunction.search_start(line), csvfunction.search_end(line))
+
+                    print(f"Caminho: {result[0]}")
+                    print(f"Distância: {result[1]}")
+
+                    time_of_travel = csvfunction.time_of_travel(line, result[1])
+
+                    print(f"Tempo que demorou em minutos: {time_of_travel}")
+
+                    checktime = csvfunction.check_time(line,time_of_travel)
+
+                    if checktime == True:
+                        rank_deduction = 0.0
+                    else:
+                        rank_deduction = 0.5
+
+                    rank = csvfunction.rank_courier(line, rank_deduction)
+
+                    csvfunction.deliver(line, time_of_travel, rank)
+                
+                elif search == 3:
                     #Procura DFS
                     result = g.procura_DFS(csvfunction.search_start(line), csvfunction.search_end(line), 
                                         path=[], visited=set())
@@ -145,7 +222,7 @@ def main():
 
                     csvfunction.deliver(line, time_of_travel, rank)
 
-                elif search == 3:
+                elif search == 4:
                     #Procura BFS
                     result = g.procura_BFS(csvfunction.search_start(line), csvfunction.search_end(line))
 

@@ -188,3 +188,109 @@ class Graph:
         for (adjacente, peso) in self.m_graph[nodo]:
             lista.append((adjacente, peso))
         return lista
+    
+
+    def greedy(self, start, end):
+        open_list = set([start])
+        closed_list = set([])
+
+        parents = {}
+        parents[start] = start
+
+        while len(open_list) > 0:
+            n = None
+
+            for v in open_list:
+                if n == None or self.m_h[v] < self.m_h[n]:
+                    n = v
+
+            if n == None:
+                print('Path does not exist!')
+                return None
+
+            if n == end:
+                reconst_path = []
+
+                while parents[n] != n:
+                    reconst_path.append(n)
+                    n = parents[n]
+
+                reconst_path.append(start)
+
+                reconst_path.reverse()
+
+                return (reconst_path, self.calcula_custo(reconst_path))
+            
+            for (m, weight) in self.getNeighbours(n):
+                if m not in open_list and m not in closed_list:
+                    open_list.add(m)
+                    parents[m] = n
+
+
+            open_list.remove(n)
+            closed_list.add(n)
+
+        print('Path does not exist!')
+        return None
+
+
+    def getH(self, nodo):
+        if nodo not in self.m_h.keys():
+            return 1000
+        else:
+            return (self.m_h[nodo])
+
+
+    def procura_aStar(self, start, end):
+        open_list = {start}
+        closed_list = set([])
+
+        g = {}
+
+        g[start] = 0
+
+        parents = {}
+        parents[start] = start
+        while len(open_list) > 0:
+            n = None
+
+            for v in open_list:
+                if n == None or g[v] + self.getH(v) < g[n] + self.getH(n):
+                    n = v
+            if n == None:
+                print('Path does not exist!')
+                return None
+
+            if n == end:
+                reconst_path = []
+
+                while parents[n] != n:
+                    reconst_path.append(n)
+                    n = parents[n]
+
+                reconst_path.append(start)
+
+                reconst_path.reverse()
+
+                return (reconst_path, self.calcula_custo(reconst_path))
+
+            for (m, weight) in self.getNeighbours(n):
+                if m not in open_list and m not in closed_list:
+                    open_list.add(m)
+                    parents[m] = n
+                    g[m] = g[n] + weight
+
+                else:
+                    if g[m] > g[n] + weight:
+                        g[m] = g[n] + weight
+                        parents[m] = n
+
+                        if m in closed_list:
+                            closed_list.remove(m)
+                            open_list.add(m)
+
+            open_list.remove(n)
+            closed_list.add(n)
+
+        print('Path does not exist!')
+        return None
