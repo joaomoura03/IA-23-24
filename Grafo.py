@@ -46,18 +46,18 @@ class Graph:
         n1 = Node(node1)
         n2 = Node(node2)
         if (n1 not in self.m_nodes):
-            n1_id = len(self.m_nodes)  # numeração sequencial
+            n1_id = len(self.m_nodes) # numeração sequencial
             n1.setId(n1_id)
             self.m_nodes.append(n1)
             self.m_graph[node1] = []
 
         if (n2 not in self.m_nodes):
-            n2_id = len(self.m_nodes)  # numeração sequencial
+            n2_id = len(self.m_nodes) # numeração sequencial
             n2.setId(n2_id)
             self.m_nodes.append(n2)
             self.m_graph[node2] = []
 
-        self.m_graph[node1].append((node2, weight))  # poderia ser n1 para trabalhar com nodos no grafo
+        self.m_graph[node1].append((node2, weight)) # poderia ser n1 para trabalhar com nodos no grafo
 
         if not self.m_directed:
               self.m_graph[node2].append((node1, weight))
@@ -144,7 +144,7 @@ class Graph:
                     return resultado
         path.pop()
         return None
-    
+
 
     def procura_BFS(self, start, end):
         # definir nodos visitados para evitar ciclos
@@ -181,14 +181,14 @@ class Graph:
             # funçao calcula custo caminho
             custo = self.calcula_custo(path)
         return (path, custo)
-    
+
 
     def getNeighbours(self, nodo):
         lista = []
         for (adjacente, peso) in self.m_graph[nodo]:
             lista.append((adjacente, peso))
         return lista
-    
+
 
     def greedy(self, start, end):
         open_list = set([start])
@@ -220,7 +220,7 @@ class Graph:
                 reconst_path.reverse()
 
                 return (reconst_path, self.calcula_custo(reconst_path))
-            
+
             for (m, weight) in self.getNeighbours(n):
                 if m not in open_list and m not in closed_list:
                     open_list.add(m)

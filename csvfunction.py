@@ -3,7 +3,7 @@ import random
 
 
 class csvfunction:
-
+    #Função que imprime o csv delivery
     def print_delivery():
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
@@ -11,6 +11,7 @@ class csvfunction:
                 print(row)
 
 
+    #Função que imprime o csv ranking
     def print_ranking():
         with open('csv/ranking.csv', 'r') as ranking_csv:
             reader_csv = csv.reader(ranking_csv)
@@ -18,6 +19,7 @@ class csvfunction:
                 print(row[:-1])
 
 
+    #Função que procura qual é o nodo onde começa a entrega
     def search_start(line):
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
@@ -27,6 +29,7 @@ class csvfunction:
                     return line_row
 
 
+    #Função que procura qual é o nodo onde acaba a entrega
     def search_end(line):
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
@@ -36,6 +39,7 @@ class csvfunction:
                     return line_row
 
 
+    #Função que calcula quanto tempo demorou a entrega a ser feita
     def time_of_travel(line, distance):
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_csv = csv.reader(delivery_csv)
@@ -54,6 +58,7 @@ class csvfunction:
                         return final_time
 
 
+    #Função que cria um estafeta
     def create_courier():
         name = input("Introduza nome do estafeta: ")
         row_to_write = [name, '0', '0', '0']
@@ -62,7 +67,8 @@ class csvfunction:
             csv_writer = csv.writer(ranking_csv)
             csv_writer.writerow(row_to_write)
 
-                    
+
+    #Função que cria uma encomenda
     def create_order():
         weight = int(input("Introduza o peso da sua encomenda: "))
         start = input("Introduza local de recolha: ")
@@ -100,6 +106,7 @@ class csvfunction:
             csv_writer.writerow(row_to_write)
 
     
+    #Funçáo que pergunta qual rank deve dar ao estafeta e atualiza o seu ranking atual
     def rank_courier(line, rank_deduction):
         with open('csv/delivery.csv', 'r') as delivery_csv:
             reader_delivery_csv = csv.reader(delivery_csv)
@@ -128,6 +135,7 @@ class csvfunction:
         return new_classificaçao
 
     
+    #Função que verifica se o estafeta fez a entrega a tempo
     def check_time(line, time):
         with open("csv/delivery.csv", 'r') as delivery_csv:
             reader_delivery_csv = csv.reader(delivery_csv)
@@ -142,6 +150,7 @@ class csvfunction:
                         return False
                     
     
+    #Função que passa uma encomenda de por fazer para feita
     def deliver(line, time, rank):
         line_delivered = []
         with open("csv/delivery.csv", 'r') as delivery_csv:
@@ -158,6 +167,7 @@ class csvfunction:
             writer_delivered_csv.writerow(line_delivered)
 
     
+    #Função que imprime o csv delivered
     def print_delivered():
         with open("csv/delivered.csv", 'r') as deliver_csv:
             reader_deliver_csv = csv.reader(deliver_csv)
@@ -165,6 +175,7 @@ class csvfunction:
                 print(row)
 
 
+    #Função que remove do csv a encomenda já entregue
     def remove_delivery(line):
         with open ("csv/delivery.csv", 'r', newline='') as delivery_csv:
             data = list(csv.reader(delivery_csv))
@@ -173,3 +184,25 @@ class csvfunction:
 
         with open("csv/delivery.csv", 'w', newline='') as delivery_csv:
             csv.writer(delivery_csv).writerows(data)
+
+    
+    def co2_emission(distance, vehicle):
+        if vehicle == "Carro":
+            gasol = distance/14
+            co2_carro = gasol*2.3
+            return co2_carro
+        elif vehicle == "Moto":
+            gasol = distance/25
+            co2_mota = gasol*0.1
+            return co2_mota
+        elif vehicle == "Bicicleta":
+            co2_bicicleta = distance*0.001
+            return co2_bicicleta
+    
+
+    def check_vehicle(line):
+        with open("csv/delivery.csv", 'r') as delivery_csv:
+            data = list(csv.reader(delivery_csv))
+            for row in data:
+                if row[0] == line:
+                    return row[2]

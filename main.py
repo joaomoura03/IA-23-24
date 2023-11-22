@@ -5,11 +5,6 @@ from csvfunction import csvfunction
 from mapas import mapas
 
 
-# TODO (final) calcular o caminho com base no consumo do veículo para ver o mais ecológico
-#   ou seja: um caminho pode ser mais ecologico mas a bicicleta nao chega a tempo, e a mota consegue
-#   mas outro caminho menos ecologico que a bicicleta consiga alcancar pode obter um consumo total inferior
-
-
 def main():
     g = Graph()
     mapas.populate_graph(g, sys.argv[1])
@@ -22,7 +17,7 @@ def main():
         print("4-Imprime entregas entregues")
         print("5-Criar estafeta")
         print("6-Criar encomenda")
-        print("7-Simular encomendas")
+        print("7-Realizar encomenda")
         print("0-Saír")
 
         saida = int(input("\nIntroduza a sua opção: "))
@@ -40,16 +35,27 @@ def main():
         elif saida == 3:
             #Imprime ranking
             csvfunction.print_ranking()
-        
+
+        elif saida == 4:
+            #Imprime delivered
+            csvfunction.print_delivered()
+
+        elif saida == 5:
+            #Cria estafeta
+            csvfunction.create_courier()
+
+        elif saida == 6:
+            #Cria encomenda
+            csvfunction.create_order()
+
         elif saida == 7:
             #Encomenda
             line = input("\nIntroduza id da encomenda: ")
-            
+
             if line == '0':
                 print("A sair\n")
-            
-            else:
 
+            else:
                 print("\n1-Greedy (Informada)")
                 print("2-A* (Informada)")
                 print("3-DFS (Não informada)")
@@ -63,6 +69,7 @@ def main():
                     print("A sair\n")
 
                 elif search == 1:
+                    #Procura Greedy
                     result = g.greedy(csvfunction.search_start(line), csvfunction.search_end(line))
 
                     print(f"Caminho: {result[0]}")
@@ -71,6 +78,9 @@ def main():
                     time_of_travel = csvfunction.time_of_travel(line, result[1])
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
+
+                    co2 = csvfunction.co2_emission(result[1], csvfunction.check_vehicle(line))
+                    print(f"No transporte foram emitidas {co2} gramas de CO2")
 
                     checktime = csvfunction.check_time(line,time_of_travel)
 
@@ -86,7 +96,7 @@ def main():
                     csvfunction.remove_delivery(line)
 
                 elif search == 2:
-
+                    #Procura A*
                     result = g.procura_aStar(csvfunction.search_start(line), csvfunction.search_end(line))
 
                     print(f"Caminho: {result[0]}")
@@ -95,6 +105,9 @@ def main():
                     time_of_travel = csvfunction.time_of_travel(line, result[1])
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
+
+                    co2 = csvfunction.co2_emission(result[1], csvfunction.check_vehicle(line))
+                    print(f"No transporte foram emitidas {co2} gramas de CO2")
 
                     checktime = csvfunction.check_time(line,time_of_travel)
 
@@ -121,6 +134,9 @@ def main():
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
+                    co2 = csvfunction.co2_emission(result[1], csvfunction.check_vehicle(line))
+                    print(f"No transporte foram emitidas {co2} gramas de CO2")
+
                     checktime = csvfunction.check_time(line,time_of_travel)
 
                     if checktime == True:
@@ -145,6 +161,9 @@ def main():
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
+                    co2 = csvfunction.co2_emission(result[1], csvfunction.check_vehicle(line))
+                    print(f"No transporte foram emitidas {co2} gramas de CO2")
+
                     checktime = csvfunction.check_time(line,time_of_travel)
 
                     if checktime == True:
@@ -158,16 +177,6 @@ def main():
 
                     csvfunction.remove_delivery(line)
 
-        elif saida == 4:
-            csvfunction.print_delivered()
-            
-        elif saida == 5:
-            #Cria estafeta
-            csvfunction.create_courier()
-
-        elif saida == 6:
-            #Cria encomenda
-            csvfunction.create_order()
 
 if __name__ == "__main__":
     main()
