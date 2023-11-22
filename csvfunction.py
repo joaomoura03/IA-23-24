@@ -163,3 +163,13 @@ class csvfunction:
             reader_deliver_csv = csv.reader(deliver_csv)
             for row in reader_deliver_csv:
                 print(row)
+
+
+    def remove_delivery(line):
+        with open ("csv/delivery.csv", 'r', newline='') as delivery_csv:
+            data = list(csv.reader(delivery_csv))
+
+        del data[int(line)]
+
+        with open("csv/delivery.csv", 'w', newline='') as delivery_csv:
+            csv.writer(delivery_csv).writerows(data)
