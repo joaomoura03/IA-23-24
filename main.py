@@ -16,29 +16,30 @@ from csvfunction import csvfunction
 #   mas outro caminho menos ecologico que a bicicleta consiga alcancar pode obter um consumo total inferior
 
 def populate_graph(g, map):
+    #Todas as distâncias estão em quilometros
     if (map == '1'):
-        g.add_edge("Avenida São Pedro", "Rua da Laje", 357)
-        g.add_edge("Rua da Laje", "Rua das Forças Armadas", 120)
-        g.add_edge("Rua das Forças Armadas", "Beco dos Unidos", 281)
-        g.add_edge("Rua das Forças Armadas", "Rua dos Padrões", 400)
-        g.add_edge("Rua das Forças Armadas", "Avenida São Pedro", 93)
-        g.add_edge("Rua dos Padrões", "Rua da Laje", 123)
-        g.add_edge("Avenida São Pedro", "Rua Humberto Delgado", 40)
-        g.add_edge("Rua Humberto Delgado", "Rua da Laje", 40)
+        g.add_edge("Avenida São Pedro", "Rua da Laje", 35.7)
+        g.add_edge("Rua da Laje", "Rua das Forças Armadas", 12.0)
+        g.add_edge("Rua das Forças Armadas", "Beco dos Unidos", 28.1)
+        g.add_edge("Rua das Forças Armadas", "Rua dos Padrões", 40.0)
+        g.add_edge("Rua das Forças Armadas", "Avenida São Pedro", 9.3)
+        g.add_edge("Rua dos Padrões", "Rua da Laje", 12.3)
+        g.add_edge("Avenida São Pedro", "Rua Humberto Delgado", 4.0)
+        g.add_edge("Rua Humberto Delgado", "Rua da Laje", 4.0)
 
     elif (map == '2'):
-        g.add_edge("Avenida São Pedro", "Rua da Laje", 357)
-        g.add_edge("Rua da Laje", "Rua das Forças Armadas", 120)
-        g.add_edge("Rua das Forças Armadas", "Beco dos Unidos", 281)
-        g.add_edge("Rua das Forças Armadas", "Rua dos Padrões", 400)
-        g.add_edge("Rua das Forças Armadas", "Avenida São Pedro", 93)
-        g.add_edge("Rua dos Padrões", "Rua da Laje", 123)
-        g.add_edge("Avenida São Pedro", "Rua Humberto Delgado", 40)
-        g.add_edge("Rua Humberto Delgado", "Rua da Laje", 40)
-        g.add_edge("Rua de Pesqueiras", "Rua Humberto Delgado", 320)
-        g.add_edge("Rua Nova de Santa Cruz", "Rua de Pesqueiras", 631)
-        g.add_edge("Rua de Pesqueiras", "Rua do Paço", 55)
-        g.add_edge("Rua do Paço", "Avenida São Pedro", 60)
+        g.add_edge("Avenida São Pedro", "Rua da Laje", 35.7)
+        g.add_edge("Rua da Laje", "Rua das Forças Armadas", 12.0)
+        g.add_edge("Rua das Forças Armadas", "Beco dos Unidos", 28.1)
+        g.add_edge("Rua das Forças Armadas", "Rua dos Padrões", 40.0)
+        g.add_edge("Rua das Forças Armadas", "Avenida São Pedro", 9.3)
+        g.add_edge("Rua dos Padrões", "Rua da Laje", 12.3)
+        g.add_edge("Avenida São Pedro", "Rua Humberto Delgado", 4.0)
+        g.add_edge("Rua Humberto Delgado", "Rua da Laje", 4.0)
+        g.add_edge("Rua de Pesqueiras", "Rua Humberto Delgado", 32.0)
+        g.add_edge("Rua Nova de Santa Cruz", "Rua de Pesqueiras", 63.1)
+        g.add_edge("Rua de Pesqueiras", "Rua do Paço", 5.5)
+        g.add_edge("Rua do Paço", "Avenida São Pedro", 6.0)
         
     elif (map == '3'):
         g.add_edge("Balança", "Campo do Gerês", 1)
@@ -90,7 +91,6 @@ def main():
         elif saida == 6:
             #Encomenda
             line = input("\nIntroduza número da linha de encomenda: ")
-            print("0-Sair")
             
             if line == '0':
                 print("A sair\n")
@@ -103,6 +103,7 @@ def main():
                 print("0-Sair")
 
                 search = int(input("\nQual é o algoritmo que deseja utilizar: "))
+                print("")
 
                 if search == 0:
                     print("A sair\n")
@@ -111,13 +112,18 @@ def main():
                     #Procura DFS
                     result = g.procura_DFS(csvfunction.search_start(line), csvfunction.search_end(line), 
                                         path=[], visited=set())
-                    print(result)
-                    print(csvfunction.time_of_travel(line, result[1]))
+                    
+                    print(f"Caminho: {result[0]}")
+                    print(f"Distância: {result[1]}")
 
-                    checktime = csvfunction.check_time(line,result[1])
+                    time_of_travel = csvfunction.time_of_travel(line, result[1])
+
+                    print(f"Tempo que demorou em minutos: {time_of_travel}")
+
+                    checktime = csvfunction.check_time(line,time_of_travel)
 
                     if checktime == True:
-                        rank_deduction = 0
+                        rank_deduction = 0.0
                     else:
                         rank_deduction = 0.5
 
@@ -126,13 +132,18 @@ def main():
                 elif search == 3:
                     #Procura BFS
                     result = g.procura_BFS(csvfunction.search_start(line), csvfunction.search_end(line))
-                    print(result)
-                    print(csvfunction.time_of_travel(line, result[1]))
 
-                    checktime = csvfunction.check_time(line,result[1])
+                    print(f"Caminho: {result[0]}")
+                    print(f"Distância: {result[1]}")
+
+                    time_of_travel = csvfunction.time_of_travel(line, result[1])
+
+                    print(f"Tempo que demorou em minutos: {time_of_travel}")
+
+                    checktime = csvfunction.check_time(line,time_of_travel)
 
                     if checktime == True:
-                        rank_deduction = 0
+                        rank_deduction = 0.0
                     else:
                         rank_deduction = 0.5
 
