@@ -15,31 +15,7 @@ class csvfunction:
         with open('csv/ranking.csv', 'r') as ranking_csv:
             reader_csv = csv.reader(ranking_csv)
             for row in reader_csv:
-                print(row)
-
-
-    def altera_tempo(line):
-        #Imprime linha a alterar
-        with open('csv/delivery.csv', 'r') as delivery_csv:
-            reader_csv = csv.reader(delivery_csv, delimiter=',')
-            for row in reader_csv:
-                if row[0] == line:
-                    print(f"Line {line}: {row}")
-
-        #Altera o tempo
-        tempo = int(input("Introduza o tempo limite do estafeta em minutos: "))
-        lines_csv = []
-        with open('csv/delivery.csv', 'r') as delivery_csv:
-            reader_csv = csv.reader(delivery_csv)
-            for row in reader_csv:
-                if row[0] == line:
-                    row[6] = str(tempo)
-                lines_csv.append(row)
-
-        with open('csv/delivery.csv', 'w', newline='') as delivery_csv:
-            writer_csv = csv.writer(delivery_csv)
-
-            writer_csv.writerows(lines_csv)
+                print(row[:-1])
 
 
     def search_start(line):
@@ -148,10 +124,12 @@ class csvfunction:
         with open("csv/ranking.csv", 'w') as ranking_csv:
             writer_csv = csv.writer(ranking_csv)
             writer_csv.writerows(data)
+        
+        return new_classificaçao
 
     
     def check_time(line, time):
-        with open('csv/delivery.csv', 'r') as delivery_csv:
+        with open("csv/delivery.csv", 'r') as delivery_csv:
             reader_delivery_csv = csv.reader(delivery_csv)
             for row in reader_delivery_csv:
                 if row[0] == line:
@@ -162,3 +140,26 @@ class csvfunction:
                         print("\nO estafeta não fez a entrega a tempo")
                         print("O estafeta terá uma dedução automática no seu ranking")
                         return False
+                    
+    
+    def deliver(line, time, rank):
+        line_delivered = []
+        with open("csv/delivery.csv", 'r') as delivery_csv:
+            reader_delivery_csv = csv.reader(delivery_csv)
+            for row_delivery in reader_delivery_csv:
+                if row_delivery[0] == line:
+                    line_delivered = row_delivery
+
+        line_delivered.append(time)
+        line_delivered.append(rank)
+
+        with open("csv/delivered.csv", 'a', newline='\n') as delivered_csv:
+            writer_delivered_csv = csv.writer(delivered_csv)
+            writer_delivered_csv.writerow(line_delivered)
+
+    
+    def print_delivered():
+        with open("csv/delivered.csv", 'r') as deliver_csv:
+            reader_deliver_csv = csv.reader(deliver_csv)
+            for row in reader_deliver_csv:
+                print(row)

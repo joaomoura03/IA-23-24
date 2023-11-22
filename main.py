@@ -3,13 +3,6 @@ import sys
 from Grafo import Graph
 from csvfunction import csvfunction
 
-# TODO change how to calculate the time to the local
-
-#se for para criar encomendas:
-#   cliente poe primeiro e ultimo sitio e tempo limite e peso da encomenda
-#   sistema vê o caminho mais ecológico e calcula tempo médio
-#   sistema dá um estafeta atoa e pôe um veículo possível (que consiga entregar a tempo)
-
 
 # TODO (final) calcular o caminho com base no consumo do veículo para ver o mais ecológico
 #   ou seja: um caminho pode ser mais ecologico mas a bicicleta nao chega a tempo, e a mota consegue
@@ -56,6 +49,26 @@ def populate_graph(g, map):
         g.add_edge("Souto", "Valdosende", 1)
         g.add_edge("Valdosende", "Vilar da Veiga", 1)
         g.add_edge("Vilar da Veiga", "Balança", 1)
+    
+    elif(map == '4'):
+        g.add_edge("Avenida São Pedro", "Rua da Laje", 35.7)
+        g.add_edge("Rua da Laje", "Rua das Forças Armadas", 12.0)
+        g.add_edge("Rua das Forças Armadas", "Beco dos Unidos", 28.1)
+        g.add_edge("Rua das Forças Armadas", "Rua dos Padrões", 40.0)
+        g.add_edge("Rua das Forças Armadas", "Avenida São Pedro", 9.3)
+        g.add_edge("Rua dos Padrões", "Rua da Laje", 12.3)
+        g.add_edge("Avenida São Pedro", "Rua Humberto Delgado", 4.0)
+        g.add_edge("Rua Humberto Delgado", "Rua da Laje", 4.0)
+        g.add_edge("Rua de Pesqueiras", "Rua Humberto Delgado", 32.0)
+        g.add_edge("Rua Nova de Santa Cruz", "Rua de Pesqueiras", 63.1)
+        g.add_edge("Rua de Pesqueiras", "Rua do Paço", 5.5)
+        g.add_edge("Rua do Paço", "Avenida São Pedro", 6.0)
+        g.add_edge("Rua do Paço", "Rua das Forças Armadas", 11.5)
+        g.add_edge("Rua das Forças Armadas", "Avenida José Afonso", 49.4)
+        g.add_edge("Avenida Jośe Afonso", "Rua do Seixal", 3.2)
+        g.add_edge("Rua do Seixal", "Rua das Forças Armadas", 6.7)
+        g.add_edge("Rua do Seixal", "Travessa Dom Lopes", 8.8)
+        g.add_edge("Rua do Seixal", "Rua dos Padrões", 8.9)
 
 
 def main():
@@ -67,9 +80,10 @@ def main():
         print("\n1-Desenha Grafo (Mapa)")
         print("2-Imprime entregas")
         print("3-Imprime ranking")
-        print("4-Criar estafeta")
-        print("5-Criar encomenda")
-        print("6-Simular encomendas")
+        print("4-Imprime entregas entregues")
+        print("5-Criar estafeta")
+        print("6-Criar encomenda")
+        print("7-Simular encomendas")
         print("0-Saír")
 
         saida = int(input("\nIntroduza a sua opção: "))
@@ -88,7 +102,7 @@ def main():
             #Imprime ranking
             csvfunction.print_ranking()
         
-        elif saida == 6:
+        elif saida == 7:
             #Encomenda
             line = input("\nIntroduza número da linha de encomenda: ")
             
@@ -127,7 +141,9 @@ def main():
                     else:
                         rank_deduction = 0.5
 
-                    csvfunction.rank_courier(line, rank_deduction)
+                    rank = csvfunction.rank_courier(line, rank_deduction)
+
+                    csvfunction.deliver(line, time_of_travel, rank)
 
                 elif search == 3:
                     #Procura BFS
@@ -147,14 +163,18 @@ def main():
                     else:
                         rank_deduction = 0.5
 
-                    csvfunction.rank_courier(line, rank_deduction)
+                    rank = csvfunction.rank_courier(line, rank_deduction)
 
-            
+                    csvfunction.deliver(line, time_of_travel, rank)
+
         elif saida == 4:
+            csvfunction.print_delivered()
+            
+        elif saida == 5:
             #Cria estafeta
             csvfunction.create_courier()
 
-        elif saida == 5:
+        elif saida == 6:
             #Cria encomenda
             csvfunction.create_order()
 

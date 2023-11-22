@@ -1,8 +1,8 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import math
-from queue import Queue
 
+from queue import Queue
 from Nodo import Node
 
 
@@ -181,3 +181,10 @@ class Graph:
             # funçao calcula custo caminho
             custo = self.calcula_custo(path)
         return (path, custo)
+    
+
+    def getNeighbours(self, nodo):
+        lista = []
+        for (adjacente, peso) in self.m_graph[nodo]:
+            lista.append((adjacente, peso))
+        return lista
