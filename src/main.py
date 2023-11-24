@@ -3,6 +3,7 @@ import sys
 from Grafo import Graph
 from csvfunction import csvfunction
 from mapas import mapas
+from Courier import courier
 
 
 def main():
@@ -42,7 +43,7 @@ def main():
 
         elif saida == 5:
             #Cria estafeta
-            csvfunction.create_courier()
+            csvfunction.new_courier()
 
         elif saida == 6:
             #Cria encomenda

@@ -1,6 +1,8 @@
 import csv
 import random
 
+from Courier import courier
+
 
 class csvfunction:
     #Função que imprime o csv delivery
@@ -57,15 +59,6 @@ class csvfunction:
                         final_time = (distance/(50 - 0.1 * float(row[3])))*60
                         return final_time
 
-
-    #Função que cria um estafeta
-    def create_courier():
-        name = input("Introduza nome do estafeta: ")
-        row_to_write = [name, '0', '0', '0']
-
-        with open("csv/ranking.csv", 'a', newline='\n') as ranking_csv:
-            csv_writer = csv.writer(ranking_csv)
-            csv_writer.writerow(row_to_write)
 
 
     #Função que cria uma encomenda
@@ -206,3 +199,10 @@ class csvfunction:
             for row in data:
                 if row[0] == line:
                     return row[2]
+                
+    
+    #Função que cria um estafeta
+    def new_courier():
+        name = input("Introduza nome do estafeta: ")
+        vehicle = input("Introduza veículo: ")
+        courier.__init__(name, vehicle)
