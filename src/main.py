@@ -19,7 +19,7 @@ def main():
         print("5-Criar estafeta")
         print("6-Criar encomenda")
         print("7-Realizar encomenda")
-        print("0-Saír")
+        print("0-Sair")
 
         saida = int(input("\nIntroduza a sua opção: "))
         if saida == 0:
