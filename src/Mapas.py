@@ -1,5 +1,4 @@
-class mapas:
-
+class Mapas:
     def populate_graph(g, map):
     #Todas as distâncias estão em quilometros
         if (map == '1'):

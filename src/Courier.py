@@ -1,16 +1,14 @@
 class Courier:
-    def __init__(self, name, vehicle, location):
+    def __init__(self, name):
         self._name = name
-        self._vehicle = vehicle
-        self._location = location
         self._classification = 0
         self._total = 0
         self._number = 0
 
 
     def __str__(self):
-        return f"Name: {self._name}\nVehicle: {self._vehicle}\nLocation: {self._location}\nClassification: {self._classification}\nTotal: {self._total}\nNumber: {self._number}"
-    
+        return [self._name, self._classification, self._total, self._number]
+
     def get_name(self):
         return self._name
 
@@ -26,6 +24,11 @@ class Courier:
     def set_vehicle(self, vehicle):
         self._vehicle = vehicle
 
-
     def set_location(self, location):
         self._location = location
+
+
+    #Função que cria um estafeta
+    def new_courier(hash, name):
+        new_courier = Courier(name)
+        hash[new_courier.get_name()] = new_courier.__str__()[1:]

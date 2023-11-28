@@ -1,8 +1,3 @@
 Id,Estafeta,Transporte,Peso,Inicio,Fim,Tempo Limite
-1,João Moura,Carro,89,Beco dos Unidos,Rua do Paço,123
-2,João Moura,Bicicleta,3,Rua da Laje,Rua de Pesqueiras,123
-3,Pedro Rosário,Carro,40,Rua do Paço,Rua da Laje,101
-5,Francisco Afonso,Carro,23,Rua do Seixal,Avenida São Pedro,400
-6,Daniel Henrique,Carro,67,Rua do Paço,Rua da Laje,350
-7,Cristina Costa,Bicicleta,1,Rua Humberto Delgado,Travessa Dom Lopes,250
-8,Cristina Costa,Carro,99,Rua do Paço,Rua Humberto Delgado,100
+1,João Moura,Carro,89,Rua do Paço,Beco dos Unidos,123
+2,Francisco Afonso,Mota,9,Rua do Seixal,12345

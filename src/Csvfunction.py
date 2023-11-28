@@ -1,24 +1,28 @@
 import csv
-import random
-
-from Courier import courier
 
 
-class csvfunction:
-    #Função que imprime o csv delivery
-    def print_delivery():
-        with open('csv/delivery.csv', 'r') as delivery_csv:
-            reader_csv = csv.reader(delivery_csv)
+class Csvfunction:
+    def load(file_path):
+        hash = {}
+        with open(file_path, 'r') as csv_file:
+            reader_csv = csv.reader(csv_file)
             for row in reader_csv:
-                print(row)
+                key = row[0]
+                values = row[1:]
+                hash[key] = values
+        return hash
 
 
-    #Função que imprime o csv ranking
-    def print_ranking():
-        with open('csv/ranking.csv', 'r') as ranking_csv:
-            reader_csv = csv.reader(ranking_csv)
-            for row in reader_csv:
-                print(row[:-1])
+    def save(file_path, hash):
+        with open(file_path, 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            for key, values in hash.items():
+                csv_writer.writerow([key] + values)
+
+
+    def print(hash):
+        for name, values in hash.items():
+            print([name] + values)
 
 
     #Função que procura qual é o nodo onde começa a entrega
@@ -60,45 +64,6 @@ class csvfunction:
                         return final_time
 
 
-
-    #Função que cria uma encomenda
-    def create_order():
-        weight = int(input("Introduza o peso da sua encomenda: "))
-        start = input("Introduza local de recolha: ")
-        end = input("Introduza local de entrega: ")
-        time = int(input("Introduza tempo limite de entrega em minutos: "))
-
-        list_of_couriers = []
-        with open('csv/ranking.csv', 'r') as ranking_csv:
-            reader_csv = csv.reader(ranking_csv)
-            for row in reader_csv:
-                if row:
-                    list_of_couriers.append(row[0])
-        list_of_couriers.pop(0)
-
-        with open("csv/delivery.csv", 'r') as delivery_csv:
-            csv_reader = csv.reader(delivery_csv)
-            lines = list(csv_reader)
-            if lines:
-                first_element_last_line = lines[-1][0]
-
-        if weight <= 5:
-            row_to_write = [int(first_element_last_line) + 1, random.choice(list_of_couriers), 
-                            'Bicicleta', weight, start, end, time]
-
-        elif 5 < weight <= 20:
-            row_to_write = [int(first_element_last_line) + 1, random.choice(list_of_couriers), 
-                            'Mota', weight,  start, end, time]
-
-        elif 20 < weight <= 100:
-            row_to_write = [int(first_element_last_line) + 1, random.choice(list_of_couriers), 
-                            'Carro', weight,  start, end, time]
-
-        with open("csv/delivery.csv", 'a', newline='\n') as delivery_csv:
-            csv_writer = csv.writer(delivery_csv)
-            csv_writer.writerow(row_to_write)
-
-    
     #Funçáo que pergunta qual rank deve dar ao estafeta e atualiza o seu ranking atual
     def rank_courier(line, rank_deduction):
         with open('csv/delivery.csv', 'r') as delivery_csv:
@@ -159,14 +124,6 @@ class csvfunction:
             writer_delivered_csv = csv.writer(delivered_csv)
             writer_delivered_csv.writerow(line_delivered)
 
-    
-    #Função que imprime o csv delivered
-    def print_delivered():
-        with open("csv/delivered.csv", 'r') as deliver_csv:
-            reader_deliver_csv = csv.reader(deliver_csv)
-            for row in reader_deliver_csv:
-                print(row)
-
 
     #Função que remove do csv a encomenda já entregue
     def remove_delivery(line):
@@ -199,10 +156,3 @@ class csvfunction:
             for row in data:
                 if row[0] == line:
                     return row[2]
-                
-    
-    #Função que cria um estafeta
-    def new_courier():
-        name = input("Introduza nome do estafeta: ")
-        vehicle = input("Introduza veículo: ")
-        courier.__init__(name, vehicle)
