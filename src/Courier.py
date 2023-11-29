@@ -32,3 +32,10 @@ class Courier:
     def new_courier(hash, name):
         new_courier = Courier(name)
         hash[new_courier.get_name()] = new_courier.__str__()[1:]
+
+    
+    def hash_to_courier(hash, key):
+        for keys, values in hash.items():
+            if keys == key:
+                courier = Courier(key)
+        return courier

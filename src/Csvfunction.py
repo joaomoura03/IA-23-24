@@ -1,5 +1,7 @@
 import csv
 
+from Delivery import Delivery
+
 
 class Csvfunction:
     def load(file_path):
@@ -23,27 +25,6 @@ class Csvfunction:
     def print(hash):
         for name, values in hash.items():
             print([name] + values)
-
-
-    #Função que procura qual é o nodo onde começa a entrega
-    def search_start(hash_delivery, key):
-        return hash_delivery.get(key)[3]
-    
-
-    #Função que procura qual é o nodo onde acaba a entrega
-    def search_end(hash_delivery, key):
-        return hash_delivery.get(key)[4]
-
-
-    #Função que calcula quanto tempo demorou a entrega a ser feita
-    def time_of_travel(hash_delivery, key, distance):
-        if hash_delivery.get(key)[1] == 'Bicicleta':
-            final_time = (distance/(10 - 0.6 * float(hash_delivery.get(key)[2])))*60
-        elif hash_delivery.get(key)[1] == 'Mota':
-            final_time = (distance/(35 - 0.5 * float(hash_delivery.get(key)[2])))*60
-        elif hash_delivery.get(key)[1] == 'Carro':
-            final_time = (distance/(50 - 0.1 * float(hash_delivery.get(key)[2])))*60
-        return final_time
 
 
     #Funçáo que pergunta qual rank deve dar ao estafeta e atualiza o seu ranking atual
@@ -79,13 +60,10 @@ class Csvfunction:
                 values.append(time)
                 values.append(rank)
                 hash_delivered[key_delivery] = values
-
-
-    #Função que remove do csv a encomenda já entregue
-    def remove_delivery(hash_delivery, key):
-        hash_delivery.pop(key,None)
-
+                hash_delivery.pop(key,None)
+                break
     
+
     def co2_emission(distance, vehicle):
         if vehicle == "Carro":
             gasol = distance/14
@@ -102,3 +80,4 @@ class Csvfunction:
 
     def check_vehicle(hash_delivery, key):
         return hash_delivery.get(key)[1]
+    
