@@ -60,3 +60,8 @@ class Delivery:
             new_delivery = Delivery(int(last_key) + 1, random.choice(list_of_couriers), 'Carro', weight, end, time)
 
         hash_delivery[new_delivery.get_id()] = new_delivery.__str__()[1:]
+
+    
+    #Função que procura qual é o nodo onde começa a entrega
+    def search_start(hash_delivery, key):
+        return hash_delivery[key].get_begining()

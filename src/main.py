@@ -83,7 +83,7 @@ def main():
 
                 elif search == 1:
                     #Procura Greedy
-                    result = g.greedy(Csvfunction.search_start(hash_delivery,key), Csvfunction.search_end(hash_delivery, key))
+                    result = g.greedy(Delivery.search_start(hash_delivery,key), Csvfunction.search_end(hash_delivery, key))
 
                     print(f"Caminho: {result[0]}")
                     print(f"Distância: {result[1]}")
@@ -95,7 +95,7 @@ def main():
                     co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(hash_delivery, key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
-                    checktime = Csvfunction.check_time(key,time_of_travel)
+                    checktime = Csvfunction.check_time(hash_delivery, key,time_of_travel)
 
                     if checktime == True:
                         rank_deduction = 0.0

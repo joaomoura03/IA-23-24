@@ -28,7 +28,7 @@ class Csvfunction:
     #Função que procura qual é o nodo onde começa a entrega
     def search_start(hash_delivery, key):
         return hash_delivery.get(key)[3]
-
+    
 
     #Função que procura qual é o nodo onde acaba a entrega
     def search_end(hash_delivery, key):
@@ -40,11 +40,10 @@ class Csvfunction:
         if hash_delivery.get(key)[1] == 'Bicicleta':
             final_time = (distance/(10 - 0.6 * float(hash_delivery.get(key)[2])))*60
         elif hash_delivery.get(key)[1] == 'Mota':
-            final_time = (distance/(35 - 0.6 * float(hash_delivery.get(key)[2])))*60
+            final_time = (distance/(35 - 0.5 * float(hash_delivery.get(key)[2])))*60
         elif hash_delivery.get(key)[1] == 'Carro':
-            final_time = (distance/(50 - 0.6 * float(hash_delivery.get(key)[2])))*60
+            final_time = (distance/(50 - 0.1 * float(hash_delivery.get(key)[2])))*60
         return final_time
-
 
 
     #Funçáo que pergunta qual rank deve dar ao estafeta e atualiza o seu ranking atual
@@ -63,18 +62,14 @@ class Csvfunction:
 
 
     #Função que verifica se o estafeta fez a entrega a tempo
-    def check_time(line, time):
-        with open("../csv/delivery.csv", 'r') as delivery_csv:
-            reader_delivery_csv = csv.reader(delivery_csv)
-            for row in reader_delivery_csv:
-                if row[0] == line:
-                    if int(row[6]) >= time:
-                        print("\nO estafeta fez a entrega a tempo")
-                        return True
-                    else:
-                        print("\nO estafeta não fez a entrega a tempo")
-                        print("O estafeta terá uma dedução automática no seu ranking")
-                        return False
+    def check_time(hash_delivery, key, time):
+        if float(hash_delivery.get(key)[5]) >= time:
+            print("\nO estafeta fez a entrega a tempo")
+            return True
+        else:
+            print("\nO estafeta não fez a entrega a tempo")
+            print("O estafeta terá uma dedução automática no seu ranking")
+            return False
                     
     
     #Função que passa uma encomenda de por fazer para feita
