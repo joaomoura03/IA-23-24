@@ -2,12 +2,12 @@ import random
 
 
 class Delivery:
-    def __init__(self, id, courier, vehicle, weight, begining, end, time):
+    def __init__(self, id, courier, vehicle, weight, end, time):
         self._id = id
         self._courier = courier
         self._vehicle = vehicle
         self._weight = weight
-        self._begining = begining
+        self._begining = 'Central'
         self._end = end
         self._time = time
 
@@ -51,12 +51,12 @@ class Delivery:
         last_key = list(hash_delivery.keys())[-1]
 
         if weight <= 5:
-            new_delivery = Delivery(int(last_key) + 1, random.choice(list_of_couriers), 'Bicicleta', weight, 'Rua do Paço', end, time)
+            new_delivery = Delivery(int(last_key) + 1, random.choice(list_of_couriers), 'Bicicleta', weight, end, time)
 
         elif 5 < weight <= 20:
-            new_delivery = Delivery(int(last_key) + 1, random.choice(list_of_couriers), 'Mota', weight, 'Rua do Paço', end, time)
+            new_delivery = Delivery(int(last_key) + 1, random.choice(list_of_couriers), 'Mota', weight, end, time)
 
         elif 20 < weight <= 100:
-            new_delivery = Delivery(int(last_key) + 1, random.choice(list_of_couriers), 'Carro', weight, 'Rua do Paço', end, time)
+            new_delivery = Delivery(int(last_key) + 1, random.choice(list_of_couriers), 'Carro', weight, end, time)
 
         hash_delivery[new_delivery.get_id()] = new_delivery.__str__()[1:]
