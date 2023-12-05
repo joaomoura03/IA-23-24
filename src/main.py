@@ -3,17 +3,18 @@ import sys
 from Grafo import Graph
 from Csvfunction import Csvfunction
 from Mapas import Mapas
-from Courier import Courier
-from Delivery import Delivery
+from Courier import Courier, CourierCatalog
+from Delivery import Delivery, DeliveryCatalog
 
 
 def main():
     g = Graph()
     Mapas.populate_graph(g, sys.argv[1])
 
-    hash_delivered = Csvfunction.load('../csv/delivered.csv')
-    hash_delivery = Csvfunction.load('../csv/delivery.csv')
-    hash_ranking = Csvfunction.load('../csv/ranking.csv')
+    # # hash_delivered = Csvfunction.load('../csv/delivered.csv')
+    dc = DeliveryCatalog()
+    #cc = CourierCatalog('../csv/ranking.csv')
+    cc = CourierCatalog()
 
     saida = -1
     while saida != 0:
@@ -32,22 +33,17 @@ def main():
         if saida == 0:
             print("A sair\n")
 
-        elif saida == 1:
-            hash_delivered = Csvfunction.load('../csv/delivered.csv')
-            hash_delivery = Csvfunction.load('../csv/delivery.csv')
-            hash_ranking = Csvfunction.load('../csv/ranking.csv')
-
         elif saida == 2:
             #Desenha
             g.desenha()
 
         elif saida == 3:
             #Imprime entregas
-            Csvfunction.print(hash_delivery)
+            dc.print()
 
         elif saida == 4:
             #Imprime ranking
-            Csvfunction.print(hash_ranking)
+            CourierCatalog.print(cc)
 
         elif saida == 5:
             #Imprime delivered
@@ -56,14 +52,15 @@ def main():
         elif saida == 6:
             #Cria estafeta
             name = input("Introduza nome do estafeta: ")
-            Courier.new_courier(hash_ranking, name)
+            cc.create_courier(name, 147.7, 31)
+            cc.save("../csv/courier.json")
 
         elif saida == 7:
             #Cria encomenda
             weight = int(input("Introduza o peso da sua encomenda: "))
             end = input("Introduza local de entrega: ")
             time = int(input("Introduza tempo limite de entrega em minutos: "))
-            Delivery.create_delivery(hash_delivery, hash_ranking, weight, end, time)
+            dc.create_delivery(cc, weight, end, time)
 
         elif saida == 8:
             #Encomenda
@@ -87,19 +84,19 @@ def main():
 
                 elif search == 1:
                     #Procura Greedy
-                    result = g.greedy(Delivery.search_start(hash_delivery,key), Delivery.search_end(hash_delivery, key))
+                    result = g.greedy(Delivery.search_start(dc,key), Delivery.search_end(dc, key))
 
                     print(f"Caminho: {result[0]}")
                     print(f"Distância: {result[1]}")
 
-                    time_of_travel = Delivery.time_of_travel(hash_delivery, key, result[1])
+                    time_of_travel = Delivery.time_of_travel(dc, key, result[1])
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(hash_delivery, key))
+                    co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(dc, key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
-                    checktime = Csvfunction.check_time(hash_delivery, key,time_of_travel)
+                    checktime = Csvfunction.check_time(dc, key,time_of_travel)
 
                     if checktime == True:
                         rank_deduction = 0.0
@@ -107,25 +104,25 @@ def main():
                         rank_deduction = 0.5
 
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = Csvfunction.rank_courier(hash_delivery,hash_ranking, key, rank_deduction, stars)
+                    rank = Csvfunction.rank_courier(dc,cc, key, rank_deduction, stars)
 
-                    Csvfunction.deliver(hash_delivery, hash_delivered, key, time_of_travel, rank)
+                    Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
 
                 elif search == 2:
                     #Procura A*
-                    result = g.procura_aStar(Delivery.search_start(hash_delivery,key), Delivery.search_end(hash_delivery, key))
+                    result = g.procura_aStar(Delivery.search_start(dc,key), Delivery.search_end(dc, key))
 
                     print(f"Caminho: {result[0]}")
                     print(f"Distância: {result[1]}")
 
-                    time_of_travel = Delivery.time_of_travel(hash_delivery, key, result[1])
+                    time_of_travel = Delivery.time_of_travel(dc, key, result[1])
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(hash_delivery, key))
+                    co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(dc, key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
-                    checktime = Csvfunction.check_time(hash_delivery, key,time_of_travel)
+                    checktime = Csvfunction.check_time(dc, key,time_of_travel)
 
                     if checktime == True:
                         rank_deduction = 0.0
@@ -133,26 +130,26 @@ def main():
                         rank_deduction = 0.5
 
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = Csvfunction.rank_courier(hash_delivery,hash_ranking, key, rank_deduction, stars)
+                    rank = Csvfunction.rank_courier(dc,cc, key, rank_deduction, stars)
 
-                    Csvfunction.deliver(hash_delivery, hash_delivered, key, time_of_travel, rank)
+                    Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
                 
                 elif search == 3:
                     #Procura DFS
-                    result = g.procura_DFS(Delivery.search_start(hash_delivery,key), Delivery.search_end(hash_delivery, key), 
+                    result = g.procura_DFS(Delivery.search_start(dc,key), Delivery.search_end(dc, key), 
                                         path=[], visited=set())
                     
                     print(f"Caminho: {result[0]}")
                     print(f"Distância: {result[1]}")
 
-                    time_of_travel = Delivery.time_of_travel(hash_delivery, key, result[1])
+                    time_of_travel = Delivery.time_of_travel(dc, key, result[1])
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(hash_delivery, key))
+                    co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(dc, key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
-                    checktime = Csvfunction.check_time(hash_delivery, key,time_of_travel)
+                    checktime = Csvfunction.check_time(dc, key,time_of_travel)
 
                     if checktime == True:
                         rank_deduction = 0.0
@@ -160,25 +157,25 @@ def main():
                         rank_deduction = 0.5
 
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = Csvfunction.rank_courier(hash_delivery,hash_ranking, key, rank_deduction, stars)
+                    rank = Csvfunction.rank_courier(dc,cc, key, rank_deduction, stars)
 
-                    Csvfunction.deliver(hash_delivery, hash_delivered, key, time_of_travel, rank)
+                    Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
 
                 elif search == 4:
                     #Procura BFS
-                    result = g.procura_BFS(Delivery.search_start(hash_delivery,key), Delivery.search_end(hash_delivery, key))
+                    result = g.procura_BFS(Delivery.search_start(dc,key), Delivery.search_end(dc, key))
 
                     print(f"Caminho: {result[0]}")
                     print(f"Distância: {result[1]}")
 
-                    time_of_travel = Delivery.time_of_travel(hash_delivery, key, result[1])
+                    time_of_travel = Delivery.time_of_travel(dc, key, result[1])
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(hash_delivery, key))
+                    co2 = Csvfunction.co2_emission(result[1], Csvfunction.check_vehicle(dc, key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
-                    checktime = Csvfunction.check_time(hash_delivery, key,time_of_travel)
+                    checktime = Csvfunction.check_time(dc, key,time_of_travel)
 
                     if checktime == True:
                         rank_deduction = 0.0
@@ -186,14 +183,14 @@ def main():
                         rank_deduction = 0.5
 
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = Csvfunction.rank_courier(hash_delivery,hash_ranking, key, rank_deduction, stars)
+                    rank = Csvfunction.rank_courier(dc,cc, key, rank_deduction, stars)
 
-                    Csvfunction.deliver(hash_delivery, hash_delivered, key, time_of_travel, rank)
+                    Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
 
         elif saida == 9:
             Csvfunction.save('../csv/delivered.csv', hash_delivered)
-            Csvfunction.save('../csv/ranking.csv', hash_ranking)
-            Csvfunction.save('../csv/delivery.csv', hash_delivery)
+            Csvfunction.save('../csv/ranking.csv', cc)
+            Csvfunction.save('../csv/delivery.csv', dc)
         
 
 

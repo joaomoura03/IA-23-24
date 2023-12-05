@@ -1,18 +1,9 @@
 import csv
 
-from Delivery import Delivery
 
 
 class Csvfunction:
-    def load(file_path):
-        hash = {}
-        with open(file_path, 'r') as csv_file:
-            reader_csv = csv.reader(csv_file)
-            for row in reader_csv:
-                key = row[0]
-                values = row[1:]
-                hash[key] = values
-        return hash
+
 
 
     def save(file_path, hash):
@@ -41,16 +32,6 @@ class Csvfunction:
 
         return new_classificaçao
 
-
-    #Função que verifica se o estafeta fez a entrega a tempo
-    def check_time(hash_delivery, key, time):
-        if float(hash_delivery.get(key)[5]) >= time:
-            print("\nO estafeta fez a entrega a tempo")
-            return True
-        else:
-            print("\nO estafeta não fez a entrega a tempo")
-            print("O estafeta terá uma dedução automática no seu ranking")
-            return False
                     
     
     #Função que passa uma encomenda de por fazer para feita
@@ -76,8 +57,4 @@ class Csvfunction:
         elif vehicle == "Bicicleta":
             co2_bicicleta = distance*0.001
             return co2_bicicleta
-    
-
-    def check_vehicle(hash_delivery, key):
-        return hash_delivery.get(key)[1]
     
