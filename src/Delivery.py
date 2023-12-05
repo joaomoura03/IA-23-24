@@ -6,64 +6,63 @@ from pydantic import BaseModel
 
 
 class Delivery(BaseModel):
-    def __init__(self, id, courier, vehicle, weight, end, time):
-        self._id = id
-        self._courier = courier
-        self._vehicle = vehicle
-        self._weight = weight
-        self._begining = 'Central'
-        self._end = end
-        self._time = time
+    id: int
+    courier: str
+    vehicle: str
+    weight: int
+    begining: str = 'Central'
+    end: str
+    time: int
 
     def __str__(self):
-        return[self._id, self._courier, self._vehicle, self._weight, self._begining, self._end, self._time]
+        return[self.id, self.courier, self.vehicle, self.weight, self.begining, self.end, self.time]
 
     def get_id(self):
-        return self._id
+        return self.id
     
     def get_courier(self):
-        return self._courier
+        return self.courier
     
     def get_vehicle(self):
-        return self._vehicle
+        return self.vehicle
 
     def get_weight(self):
-        return self._weight
+        return self.weight
 
     def get_begining(self):
-        return self._begining
+        return self.begining
 
     def get_end(self):
-        return self._end
+        return self.end
 
     def get_time(self):
-        return self._time
+        return self.time
     
     def set_id(self, id):
-        self._id = id
+        self.id = id
 
     def set_courier(self, courier):
-        self._courier = courier
+        self.courier = courier
 
     def set_vehicle(self, vehicle):
-        self._vehicle = vehicle
+        self.vehicle = vehicle
 
     def set_weight(self, weight):
-        self._weight = weight
+        self.weight = weight
 
     def set_begining(self, begining):
-        self._begining = begining
+        self.begining = begining
 
     def set_end(self, end):
-        self._end = end
+        self.end = end
 
     def set_time(self, time):
-        self._time = time
+        self.time = time
 
 
     #Função que cria uma encomenda
     def new_delivery(id: int, cc, weight, end, time):
-        list_of_couriers = list(cc.keys())[1:]
+        list_of_couriers = list(cc.couriers.keys())
 
         if weight <= 5:
             vehicle = "Bicicleta"
@@ -72,14 +71,14 @@ class Delivery(BaseModel):
         elif 20 < weight <= 100:
             vehicle = "Carro"
         # courier nao tem que estar disponivel? de resto ta
-        return Delivery(id, random.choice(list_of_couriers), vehicle, weight, end, time)
-
-    def hash_to_delivery(dc, key):
-        for keys, values in dc.items():
-            if keys == key:
-                delivery = Delivery(keys, values[0], values[1], values[2], values[4], values[5])
-        return delivery
-    
+        return Delivery(
+            id=id,
+            courier=random.choice(list_of_couriers),
+            vehicle=vehicle,
+            weight=weight,
+            end=end,
+            time=time
+        )
 
     #Função que procura qual é o nodo onde começa a entrega
     def search_start(dc, key):
@@ -122,39 +121,27 @@ class Delivery(BaseModel):
 
 class DeliveryCatalog(BaseModel):
     deliveries: dict[int, Delivery] = {}
-    
-    # def __init__(self, path):
-    #     self.load(path)
 
     def add(self, *, d: Delivery):
-        self.deliveries[d._id] = d
-
-    def load(self, file_path):
-        with open(file_path, 'r') as csv_file:
-            reader_csv = csv.DictReader(csv_file)
-            for row in reader_csv:
-                delivery = Delivery (                    
-                id=int(row['Id']),
-                courier=row['Estafeta'],
-                vehicle=row['Transporte'],
-                weight=int(row['Peso']),
-                end=row['Fim'],
-                time=int(row['Tempo Limite']))
-                self.add(delivery)
+        self.deliveries[d.id] = d
 
     def print(self):
         # for _id, delivery in self.deliveries.items():
-        #     print(f"ID: {_id}, Courier: {delivery._courier}, Vehicle: {delivery._vehicle}, Weight: {delivery._weight}, Beginning: {delivery._begining}, End: {delivery._end}, Time: {delivery._time}")
+        #     print(f"ID: {_id}, Courier: {delivery.courier}, Vehicle: {delivery.vehicle}, Weight: {delivery.weight}, Beginning: {delivery.begining}, End: {delivery.end}, Time: {delivery.time}")
         print(self.deliveries)
 
     def create_delivery(self, cc, weight, end, time):
-        id = list(self.deliveries.keys())[-1] + 1
+        keys = list(self.deliveries.keys())
+        if len(keys) == 0:
+            id = 1
+        else:
+            id = keys[-1] + 1
         self.deliveries[id] = Delivery.new_delivery(id, cc, weight, end, time)
 
-    def load(self, file_path):
+    def load(file_path):
         with open(file_path, mode="r", encoding="utf-8") as fp:
-            self.couriers = DeliveryCatalog.model_dump_json(fp.read)
+            return DeliveryCatalog.model_validate_json(fp.read())
 
     def save(self, file_path):
         with open(file_path, mode="w", encoding="utf-8") as fp:
-            fp.write(self.deliveries.model_dump_json())
+            fp.write(self.model_dump_json())

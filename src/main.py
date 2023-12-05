@@ -11,9 +11,7 @@ def main():
     g = Graph()
     Mapas.populate_graph(g, sys.argv[1])
 
-    # # hash_delivered = Csvfunction.load('../csv/delivered.csv')
     dc = DeliveryCatalog()
-    #cc = CourierCatalog('../csv/ranking.csv')
     cc = CourierCatalog()
 
     saida = -1
@@ -32,6 +30,11 @@ def main():
         saida = int(input("\nIntroduza a sua opção: "))
         if saida == 0:
             print("A sair\n")
+
+        elif saida == 1:
+            #Load
+            cc = CourierCatalog.load("../data/courier.json")
+            dc = DeliveryCatalog.load("../data/delivery.json")
 
         elif saida == 2:
             #Desenha
@@ -52,8 +55,8 @@ def main():
         elif saida == 6:
             #Cria estafeta
             name = input("Introduza nome do estafeta: ")
-            cc.create_courier(name, 147.7, 31)
-            cc.save("../csv/courier.json")
+            courier = Courier(name=name, classification=0.0, total=0)
+            cc.add(courier)
 
         elif saida == 7:
             #Cria encomenda
@@ -188,9 +191,8 @@ def main():
                     Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
 
         elif saida == 9:
-            Csvfunction.save('../csv/delivered.csv', hash_delivered)
-            Csvfunction.save('../csv/ranking.csv', cc)
-            Csvfunction.save('../csv/delivery.csv', dc)
+            cc.save("../data/courier.json")
+            dc.save("../data/delivery.json")
         
 
 
