@@ -1,5 +1,7 @@
 import random
+
 from pydantic import BaseModel
+from Delivered import Delivered, DeliveredCatalog
 
 
 class Delivery(BaseModel):
@@ -87,7 +89,9 @@ class DeliveryCatalog(BaseModel):
 
     def print(self):
         for _id, delivery in self.deliveries.items():
-            print(f"ID: {_id}, Courier: {delivery.courier}, Vehicle: {delivery.vehicle}, Weight: {delivery.weight}, Beginning: {delivery.begining}, End: {delivery.end}, Time: {delivery.time}")
+            print(f"ID: {_id}, Courier: {delivery.courier}, Vehicle: {delivery.vehicle}, 
+                  Weight: {delivery.weight}, Beginning: {delivery.begining}, 
+                  End: {delivery.end}, Time: {delivery.time}")
 
 
     def create_delivery(self, cc, weight, end, time):
@@ -140,5 +144,39 @@ class DeliveryCatalog(BaseModel):
         return self.deliveries[str(key)].vehicle
     
 
-    def get_courier(self, key):
+    def remove_delivery(self, key):
+        del self.deliveries[str(key)]
+
+    
+    def get_id_c(self, key):
+        return self.deliveries[str(key)].id
+    
+
+    def get_courier_c(self, key):
         return self.deliveries[str(key)].courier
+    
+
+    def get_vehicle_c(self, key):
+        return self.deliveries[str(key)].vehicle
+    
+
+    def get_weight_c(self, key):
+        return self.deliveries[str(key)].weight
+    
+
+    def get_begining_c(self, key):
+        return self.deliveries[str(key)].begining
+    
+
+    def get_end_c(self, key):
+        return self.deliveries[str(key)].end
+    
+
+    def get_time_c(self, key):
+        return self.deliveries[str(key)].time
+    
+
+    def make_delivery_by_key(self, key):
+        return Delivery(self.get_id_c(key), self.get_courier_c(key), 
+                        self.get_vehicle_c(key), self.get_weight_c(key), 
+                        self.get_end_c(key), self.get_time_c(key))

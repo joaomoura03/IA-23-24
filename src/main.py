@@ -5,6 +5,7 @@ from Csvfunction import Csvfunction
 from Mapas import Mapas
 from Courier import Courier, CourierCatalog
 from Delivery import Delivery, DeliveryCatalog
+from Delivered import Delivered, DeliveredCatalog
 
 
 def main():
@@ -32,6 +33,7 @@ def main():
             #Load
             cc = CourierCatalog.load("../data/courier.json")
             dc = DeliveryCatalog.load("../data/delivery.json")
+            ddc = DeliveredCatalog.load("../data/delivered.json")
 
         elif saida == 2:
             #Desenha
@@ -104,7 +106,7 @@ def main():
                         rank_deduction = 0.5
 
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier(key))
+                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
                     #Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
 
@@ -130,7 +132,7 @@ def main():
                         rank_deduction = 0.5
 
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier(key))
+                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
                     #Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
                 
@@ -157,7 +159,7 @@ def main():
                         rank_deduction = 0.5
 
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier(key))
+                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
                     #Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
 
@@ -183,13 +185,14 @@ def main():
                         rank_deduction = 0.5
 
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier(key))
+                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
                     #Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
 
         elif saida == 9:
             cc.save("../data/courier.json")
             dc.save("../data/delivery.json")
+            ddc.save("../data/delivered.json")
         
 
 
