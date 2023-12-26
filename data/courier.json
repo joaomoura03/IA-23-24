@@ -35,6 +35,12 @@
             "number": 4.5,
             "total": 1.0,
             "classification": 4.5
+        },
+        "Pedro Costa": {
+            "name": "Pedro Costa",
+            "number": 0.0,
+            "total": 0.0,
+            "classification": 0.0
         }
     }
 }

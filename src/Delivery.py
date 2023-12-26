@@ -1,5 +1,4 @@
 import random
-
 from pydantic import BaseModel
 
 
@@ -76,10 +75,6 @@ class Delivery(BaseModel):
             end=end,
             time=time
         )
-    
-
-    def check_vehicle(dc, key):
-        return dc[key]["vehicle"]
 
 
 class DeliveryCatalog(BaseModel):
@@ -149,5 +144,11 @@ class DeliveryCatalog(BaseModel):
         return self.deliveries[str(key)].courier
     
 
-    def remove_and_get(self, key: str) -> Delivery:
+    def remove_and_get(self, key) -> Delivery:
         return self.deliveries.pop(key, None)
+    
+    
+    def make_more_deliveries(self, key):
+        if self.deliveries[key].vehicle == "Bicicleta":
+            if self.deliveries[key].weight < 5:
+                

@@ -34,7 +34,6 @@ class DeliveredCatalog(BaseModel):
     
     def deliver(self, key: str, time_delivery: float, classification: float, delivered_delivery: Delivery):
         if delivered_delivery:
-            # Create a new Delivered object with additional information
             new_delivered = Delivered(
                 id=delivered_delivery.id,
                 courier=delivered_delivery.courier,
@@ -47,7 +46,6 @@ class DeliveredCatalog(BaseModel):
                 classification=classification
             )
 
-            # Insert the new_delivered into DeliveredCatalog
             self.delivered[key] = new_delivered
             return new_delivered
         else:

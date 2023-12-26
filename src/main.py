@@ -53,7 +53,7 @@ def main():
         elif saida == 6:
             #Cria estafeta
             name = input("Introduza nome do estafeta: ")
-            courier = Courier(name=name, classification=0.0, total=0)
+            courier = Courier(name=name,number= 0.0, classification=0.0, total=0)
             cc.add(courier)
 
         elif saida == 7:
@@ -70,129 +70,56 @@ def main():
             if key == '0':
                 print("A sair\n")
 
-            else:
-                print("\n1-Greedy (Informada)")
-                print("2-A* (Informada)")
-                print("3-DFS (Não informada)")
-                print("4-BFS (Não informada)")
-                print("0-Sair")
+            else :
 
-                search = int(input("\nQual é o algoritmo que deseja utilizar: "))
-                print("")
+                result_greedy = g.greedy("Central", dc.search_end(key))
+                result_astar = g.procura_aStar("Central", dc.search_end(key))
+                result_dfs = g.procura_DFS("Central", dc.search_end(key), path=[], visited=set())
+                result_bfs = g.procura_BFS("Central", dc.search_end(key))
 
-                if search == 0:
-                    print("A sair\n")
+                algorithm = min([result_greedy[1], result_astar[1], result_dfs[1], result_bfs[1]])
 
-                elif search == 1:
-                    #Procura Greedy
-                    result = g.greedy("Central", dc.search_end(key))
+                if algorithm == result_greedy[1]:
+                    result = result_greedy
+                    print("A usar o algoritmo Greedy")
+                elif algorithm == result_astar[1]:
+                    result = result_astar
+                    print("A usar o algoritmo A*")
+                elif algorithm == result_dfs[1]:
+                    result = result_dfs
+                    print("A usar o algoritmo DFS")
+                elif algorithm == result_bfs[1]:
+                    result = result_bfs
+                    print("A usar o algoritmo BFS")
 
-                    print(f"Caminho: {result[0]}")
-                    print(f"Distância: {result[1]}")
+                print(f"Caminho: {result[0]}")
+                print(f"Distância: {result[1]}")
 
-                    time_of_travel = dc.time_of_travel(key, result[1])
+                time_of_travel = dc.time_of_travel(key, result[1])
 
-                    print(f"Tempo que demorou em minutos: {time_of_travel}")
+                print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
-                    print(f"No transporte foram emitidas {co2} gramas de CO2")
+                co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
+                print(f"No transporte foram emitidas {co2} gramas de CO2")
 
-                    checktime = dc.check_time(key, time_of_travel)
+                checktime = dc.check_time(key, time_of_travel)
 
-                    if checktime == True:
-                        rank_deduction = 0.0
-                    else:
-                        rank_deduction = 0.5
+                if checktime == True:
+                    rank_deduction = 0.0
+                else:
+                    rank_deduction = 0.5
 
-                    stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
+                stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
+                rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
-                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
+                ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
 
-                elif search == 2:
-                    #Procura A*
-                    result = g.procura_aStar("Central", dc.search_end(key))
-
-                    print(f"Caminho: {result[0]}")
-                    print(f"Distância: {result[1]}")
-
-                    time_of_travel = dc.time_of_travel(key, result[1])
-
-                    print(f"Tempo que demorou em minutos: {time_of_travel}")
-
-                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
-                    print(f"No transporte foram emitidas {co2} gramas de CO2")
-
-                    checktime = dc.check_time(key, time_of_travel)
-
-                    if checktime == True:
-                        rank_deduction = 0.0
-                    else:
-                        rank_deduction = 0.5
-
-                    stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
-
-                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
-                
-                elif search == 3:
-                    #Procura DFS
-                    result = g.procura_DFS("Central", dc.search_end(key), 
-                                        path=[], visited=set())
-                    
-                    print(f"Caminho: {result[0]}")
-                    print(f"Distância: {result[1]}")
-
-                    time_of_travel = dc.time_of_travel(key, result[1])
-
-                    print(f"Tempo que demorou em minutos: {time_of_travel}")
-
-                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
-                    print(f"No transporte foram emitidas {co2} gramas de CO2")
-
-                    checktime = dc.check_time(key, time_of_travel)
-
-                    if checktime == True:
-                        rank_deduction = 0.0
-                    else:
-                        rank_deduction = 0.5
-
-                    stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
-
-                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
-
-                elif search == 4:
-                    #Procura BFS
-                    result = g.procura_BFS("Central", dc.search_end(key))
-
-                    print(f"Caminho: {result[0]}")
-                    print(f"Distância: {result[1]}")
-
-                    time_of_travel = dc.time_of_travel(key, result[1])
-
-                    print(f"Tempo que demorou em minutos: {time_of_travel}")
-
-                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
-                    print(f"No transporte foram emitidas {co2} gramas de CO2")
-
-                    checktime = dc.check_time(key, time_of_travel)
-
-                    if checktime == True:
-                        rank_deduction = 0.0
-                    else:
-                        rank_deduction = 0.5
-
-                    stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
-
-                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
 
         elif saida == 9:
             cc.save("../data/courier.json")
             dc.save("../data/delivery.json")
             ddc.save("../data/delivered.json")
-        
+
 
 if __name__ == "__main__":
     main()
