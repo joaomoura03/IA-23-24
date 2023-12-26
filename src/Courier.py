@@ -24,6 +24,20 @@ class Courier(BaseModel):
     def classificate(self, rating):
         self.total += 1
         self.classification += rating
+
+
+    def co2_emission(distance, vehicle):
+        if vehicle == "Carro":
+            gasol = distance/14
+            co2_carro = gasol*2.3
+            return co2_carro
+        elif vehicle == "Moto":
+            gasol = distance/25
+            co2_mota = gasol*0.1
+            return co2_mota
+        elif vehicle == "Bicicleta":
+            co2_bicicleta = distance*0.001
+            return co2_bicicleta
     
 
 class CourierCatalog(BaseModel):
@@ -64,3 +78,5 @@ class CourierCatalog(BaseModel):
         courier.total = new_total
         courier.classification = new_classification
         self.couriers[name] = courier
+
+        return new_classification

@@ -1,0 +1,26 @@
+{
+    "delivered": {
+        "3": {
+            "id": 3,
+            "courier": "Daniel Henrique",
+            "vehicle": "Carro",
+            "weight": 76,
+            "begining": "Central",
+            "end": "Rua Nova de Santa Cruz",
+            "time_user": 60,
+            "time_delivery": 30.0,
+            "classification": 4.5
+        },
+        "5": {
+            "id": 5,
+            "courier": "Francisco Afonso",
+            "vehicle": "Carro",
+            "weight": 45,
+            "begining": "Central",
+            "end": "Travessa Dom Lopes",
+            "time_user": 78,
+            "time_delivery": 35.604395604395606,
+            "classification": 4.935483870967742
+        }
+    }
+}

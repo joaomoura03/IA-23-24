@@ -29,7 +29,26 @@ class DeliveredCatalog(BaseModel):
     
     def print(self):
         for id, delivered in self.delivered.items():
-            print(f"ID: {id}, Courier: {delivered.courier}, Vehicle: {delivered.vehicle}, 
-                  Weight: {delivered.weight}, Beginning: {delivered.begining}, End: {delivered.end}, 
-                  Time User: {delivered.time_user}, Time Delivery: {delivered.time_delivery}, 
-                  Classification: {delivered.classification}")
+            print(f"ID: {id}, Courier: {delivered.courier}, Vehicle: {delivered.vehicle}, Weight: {delivered.weight}, Beginning: {delivered.begining}, End: {delivered.end}, Time User: {delivered.time_user}, Time Delivery: {delivered.time_delivery}, Classification: {delivered.classification}")
+
+    
+    def deliver(self, key: str, time_delivery: float, classification: float, delivered_delivery: Delivery):
+        if delivered_delivery:
+            # Create a new Delivered object with additional information
+            new_delivered = Delivered(
+                id=delivered_delivery.id,
+                courier=delivered_delivery.courier,
+                vehicle=delivered_delivery.vehicle,
+                weight=delivered_delivery.weight,
+                begining=delivered_delivery.begining,
+                end=delivered_delivery.end,
+                time_user=delivered_delivery.time,
+                time_delivery=time_delivery,
+                classification=classification
+            )
+
+            # Insert the new_delivered into DeliveredCatalog
+            self.delivered[key] = new_delivered
+            return new_delivered
+        else:
+            return None

@@ -1,11 +1,10 @@
 import sys
 
 from Grafo import Graph
-from Csvfunction import Csvfunction
 from Mapas import Mapas
 from Courier import Courier, CourierCatalog
-from Delivery import Delivery, DeliveryCatalog
-from Delivered import Delivered, DeliveredCatalog
+from Delivery import DeliveryCatalog
+from Delivered import DeliveredCatalog
 
 
 def main():
@@ -49,7 +48,7 @@ def main():
 
         elif saida == 5:
             #Imprime delivered
-            Csvfunction.print(hash_delivered)
+            ddc.print()
 
         elif saida == 6:
             #Cria estafeta
@@ -95,7 +94,7 @@ def main():
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Csvfunction.co2_emission(result[1], dc.check_vehicle(key))
+                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
                     checktime = dc.check_time(key, time_of_travel)
@@ -108,7 +107,7 @@ def main():
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
                     rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
-                    #Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
+                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
 
                 elif search == 2:
                     #Procura A*
@@ -121,7 +120,7 @@ def main():
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Csvfunction.co2_emission(result[1], dc.check_vehicle(key))
+                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
                     checktime = dc.check_time(key, time_of_travel)
@@ -134,7 +133,7 @@ def main():
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
                     rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
-                    #Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
+                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
                 
                 elif search == 3:
                     #Procura DFS
@@ -148,7 +147,7 @@ def main():
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Csvfunction.co2_emission(result[1], dc.check_vehicle(key))
+                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
                     checktime = dc.check_time(key, time_of_travel)
@@ -161,7 +160,7 @@ def main():
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
                     rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
-                    #Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
+                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
 
                 elif search == 4:
                     #Procura BFS
@@ -174,7 +173,7 @@ def main():
 
                     print(f"Tempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Csvfunction.co2_emission(result[1], dc.check_vehicle(key))
+                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
                     print(f"No transporte foram emitidas {co2} gramas de CO2")
 
                     checktime = dc.check_time(key, time_of_travel)
@@ -187,14 +186,13 @@ def main():
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
                     rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
-                    #Csvfunction.deliver(dc, hash_delivered, key, time_of_travel, rank)
+                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
 
         elif saida == 9:
             cc.save("../data/courier.json")
             dc.save("../data/delivery.json")
             ddc.save("../data/delivered.json")
         
-
 
 if __name__ == "__main__":
     main()
