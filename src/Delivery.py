@@ -105,8 +105,13 @@ class DeliveryCatalog(BaseModel):
             fp.write(self.model_dump_json())
 
 
+    #Função que procura qual é o nodo onde começa a entrega
+    def start_d(self, key):
+        return self.deliveries[str(key)].begining
+
+
     #Função que procura qual é o nodo onde acaba a entrega
-    def search_end(self, key):
+    def end_d(self, key):
         return self.deliveries[str(key)].end
     
 
@@ -149,6 +154,35 @@ class DeliveryCatalog(BaseModel):
     
     
     def make_more_deliveries(self, key):
+        new_keys = []
         if self.deliveries[key].vehicle == "Bicicleta":
-            if self.deliveries[key].weight < 5:
-                
+            weight_original = self.deliveries[key].weight
+            if weight_original < 5:
+                for key_new_delivery, delivery in self.deliveries.items():
+                    if delivery.vehicle == "Bicicleta" and delivery.weight + weight_original <= 5:
+                        weight_original = weight_original + delivery.weight
+                        new_keys.append(key_new_delivery)
+
+        elif self.deliveries[key].vehicle == "Mota":
+            weight_original = self.deliveries[key].weight
+            if weight_original < 20:
+                for key_new_delivery, delivery in self.deliveries.items():
+                    if delivery.vehicle == "Mota" and delivery.weight + weight_original <= 20:
+                        weight_original = weight_original + delivery.weight
+                        new_keys.append(key_new_delivery)
+
+        elif self.deliveries[key].vehicle == "Carro":
+            weight_original = self.deliveries[key].weight
+            if weight_original < 100:
+                for key_new_delivery, delivery in self.deliveries.items():
+                    if delivery.vehicle == "Carro" and delivery.weight + weight_original <= 100:
+                        weight_original = weight_original + delivery.weight
+                        new_keys.append(key_new_delivery)
+        
+
+        print(f"\nPode fazer mais estas encomendas em simultâneo {new_keys[1:]}")
+        return new_keys
+    
+
+    def change_start(self, key, new_start):
+        self.deliveries[key].begining = new_start

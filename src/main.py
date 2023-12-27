@@ -72,48 +72,54 @@ def main():
 
             else :
 
-                result_greedy = g.greedy("Central", dc.search_end(key))
-                result_astar = g.procura_aStar("Central", dc.search_end(key))
-                result_dfs = g.procura_DFS("Central", dc.search_end(key), path=[], visited=set())
-                result_bfs = g.procura_BFS("Central", dc.search_end(key))
+                list_of_keys = iter(dc.make_more_deliveries(key))
 
-                algorithm = min([result_greedy[1], result_astar[1], result_dfs[1], result_bfs[1]])
+                for key in list_of_keys:
+                    
+                    print(f"\nA fazer a entrega {key}")
+                    result_greedy = g.greedy(dc.start_d(key), dc.end_d(key))
+                    result_astar = g.procura_aStar(dc.start_d(key), dc.end_d(key))
+                    result_dfs = g.procura_DFS(dc.start_d(key), dc.end_d(key), path=[], visited=set())
+                    result_bfs = g.procura_BFS(dc.start_d(key), dc.end_d(key))
 
-                if algorithm == result_greedy[1]:
-                    result = result_greedy
-                    print("A usar o algoritmo Greedy")
-                elif algorithm == result_astar[1]:
-                    result = result_astar
-                    print("A usar o algoritmo A*")
-                elif algorithm == result_dfs[1]:
-                    result = result_dfs
-                    print("A usar o algoritmo DFS")
-                elif algorithm == result_bfs[1]:
-                    result = result_bfs
-                    print("A usar o algoritmo BFS")
+                    algorithm = min([result_greedy[1], result_astar[1], result_dfs[1], result_bfs[1]])
 
-                print(f"Caminho: {result[0]}")
-                print(f"Distância: {result[1]}")
+                    if algorithm == result_greedy[1]:
+                        result = result_greedy
+                        print("\nA usar o algoritmo Greedy")
+                    elif algorithm == result_astar[1]:
+                        result = result_astar
+                        print("\nA usar o algoritmo A*")
+                    elif algorithm == result_dfs[1]:
+                        result = result_dfs
+                        print("\nA usar o algoritmo DFS")
+                    elif algorithm == result_bfs[1]:
+                        result = result_bfs
+                        print("\nA usar o algoritmo BFS")
 
-                time_of_travel = dc.time_of_travel(key, result[1])
+                    print(f"\nCaminho: {result[0]}")
+                    print(f"Distância: {result[1]}")
 
-                print(f"Tempo que demorou em minutos: {time_of_travel}")
+                    time_of_travel = dc.time_of_travel(key, result[1])
 
-                co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
-                print(f"No transporte foram emitidas {co2} gramas de CO2")
+                    print(f"\nTempo que demorou em minutos: {time_of_travel}")
 
-                checktime = dc.check_time(key, time_of_travel)
+                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
+                    print(f"\nNo transporte foram emitidas {co2} gramas de CO2")
 
-                if checktime == True:
-                    rank_deduction = 0.0
-                else:
-                    rank_deduction = 0.5
+                    checktime = dc.check_time(key, time_of_travel)
 
-                stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
-                rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
+                    if checktime == True:
+                        rank_deduction = 0.0
+                    else:
+                        rank_deduction = 0.5
 
-                ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
+                    stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
+                    rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
+                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
+                    
+                    dc.change_start(next(list_of_keys), dc.end_d(key))
 
         elif saida == 9:
             cc.save("../data/courier.json")
