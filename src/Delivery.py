@@ -187,6 +187,10 @@ class DeliveryCatalog(BaseModel):
     def change_start(self, key, new_start):
         self.deliveries[str(key)].begining = new_start
 
+    
+    def change_courier(self, key, new_courier):
+        self.deliveries[str(key)].courier = new_courier
+
 
     def next_list(self, list):
         for i in list:

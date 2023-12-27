@@ -73,9 +73,10 @@ def main():
             else :
 
                 list_of_keys = dc.make_more_deliveries(key)
+                courier_key = dc.get_courier_c(key)
 
                 for index, key in enumerate(list_of_keys):
-                    
+
                     print(f"\nA fazer a entrega {key}")
                     result_greedy = g.greedy(dc.start_d(key), dc.end_d(key))
                     result_astar = g.procura_aStar(dc.start_d(key), dc.end_d(key))
@@ -117,7 +118,9 @@ def main():
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
                     rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
-                    dc.change_start(list_of_keys[index + 1], dc.end_d(key))
+                    if index < len(list_of_keys)-1:
+                        dc.change_start(list_of_keys[index + 1], dc.end_d(key))
+                        dc.change_courier(list_of_keys[index + 1], courier_key)
 
                     ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
                     

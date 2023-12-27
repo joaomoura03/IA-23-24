@@ -21,6 +21,28 @@
             "time_user": 78,
             "time_delivery": 35.604395604395606,
             "classification": 4.935483870967742
+        },
+        "2": {
+            "id": 2,
+            "courier": "Francisco Afonso",
+            "vehicle": "Carro",
+            "weight": 25,
+            "begining": "Central",
+            "end": "Travessa Dom Lopes",
+            "time_user": 23,
+            "time_delivery": 34.10526315789474,
+            "classification": 4.888888888888889
+        },
+        "4": {
+            "id": 4,
+            "courier": "Francisco Afonso",
+            "vehicle": "Carro",
+            "weight": 34,
+            "begining": "Travessa Dom Lopes",
+            "end": "Avenida José Afonso",
+            "time_user": 34,
+            "time_delivery": 21.630901287553648,
+            "classification": 4.891891891891892
         }
     }
 }

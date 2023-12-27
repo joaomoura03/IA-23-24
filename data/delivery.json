@@ -9,24 +9,6 @@
             "end": "Rua do Seixal",
             "time": 12
         },
-        "2": {
-            "id": 2,
-            "courier": "Francisco Afonso",
-            "vehicle": "Carro",
-            "weight": 25,
-            "begining": "Central",
-            "end": "Travessa Dom Lopes",
-            "time": 23
-        },
-        "4": {
-            "id": 4,
-            "courier": "João Moura",
-            "vehicle": "Carro",
-            "weight": 34,
-            "begining": "Central",
-            "end": "Avenida José Afonso",
-            "time": 34
-        },
         "6": {
             "id": 6,
             "courier": "Daniel Henrique",
