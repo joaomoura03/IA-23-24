@@ -1,6 +1,10 @@
 import random
 from pydantic import BaseModel
 
+BASE_PRICE = 25
+CONSUME_CAR_BY_METER = 0.000068
+CONSUME_BIKE_BY_METER = 0.000034
+PRICE_GASOLINE = 1.704
 
 class Delivery(BaseModel):
     id: int
@@ -75,11 +79,24 @@ class Delivery(BaseModel):
             end=end,
             time=time
         )
+    
+
+    def co2_emission(distance, vehicle):
+        if vehicle == "Carro":
+            gasol = distance/14
+            co2_carro = gasol*2.3
+            return co2_carro
+        elif vehicle == "Moto":
+            gasol = distance/25
+            co2_mota = gasol*0.1
+            return co2_mota
+        elif vehicle == "Bicicleta":
+            co2_bicicleta = distance*0.001
+            return co2_bicicleta
 
 
 class DeliveryCatalog(BaseModel):
     deliveries: dict[str, Delivery] = {}
-
 
     def print(self):
         for _id, delivery in self.deliveries.items():
@@ -155,6 +172,7 @@ class DeliveryCatalog(BaseModel):
     
     def make_more_deliveries(self, key):
         new_keys = []
+        new_keys.append(key)
         if self.deliveries[key].vehicle == "Bicicleta":
             weight_original = self.deliveries[key].weight
             if weight_original < 5:
@@ -179,9 +197,10 @@ class DeliveryCatalog(BaseModel):
                         weight_original = weight_original + delivery.weight
                         new_keys.append(key_new_delivery)
         
-
-        print(f"\nPode fazer mais estas encomendas em simultâneo {new_keys[1:]}")
-        return new_keys
+        new_keys_c = sorted(list(set(new_keys)))
+        print(new_keys_c)
+        print(f"\nPode fazer mais estas encomendas em simultâneo {new_keys_c[1:]}")
+        return new_keys_c
     
 
     def change_start(self, key, new_start):
@@ -196,3 +215,14 @@ class DeliveryCatalog(BaseModel):
         for i in list:
             if int(i) < int(len(list)):
                 return list[i+1]
+            
+        
+    def price_delivery(self, key, distance):
+        if self.deliveries[str(key)].vehicle == "Bicicleta":
+            price = BASE_PRICE + 0.2 * distance
+        elif self.deliveries[str(key)].vehicle == "Mota":
+            price = BASE_PRICE + (distance * CONSUME_BIKE_BY_METER) * PRICE_GASOLINE
+        elif self.deliveries[str(key)].vehicle == "Carro":
+            price = BASE_PRICE + (distance * CONSUME_CAR_BY_METER) * PRICE_GASOLINE
+        print(f"A viagem custou {price}$")
+        return price

@@ -43,6 +43,50 @@
             "time_user": 34,
             "time_delivery": 21.630901287553648,
             "classification": 4.891891891891892
+        },
+        "7": {
+            "id": 7,
+            "courier": "Francisco Afonso",
+            "vehicle": "Bicicleta",
+            "weight": 4,
+            "begining": "Central",
+            "end": "Rua Humberto Delgado",
+            "time_user": 34,
+            "time_delivery": 31.57894736842105,
+            "classification": 4.894736842105263
+        },
+        "11": {
+            "id": 11,
+            "courier": "Francisco Afonso",
+            "vehicle": "Bicicleta",
+            "weight": 1,
+            "begining": "Rua Humberto Delgado",
+            "end": "Rua do Seixal",
+            "time_user": 90,
+            "time_delivery": 127.65957446808511,
+            "classification": 4.884615384615385
+        },
+        "10": {
+            "id": 10,
+            "courier": "Cristina Costa",
+            "vehicle": "Carro",
+            "weight": 33,
+            "begining": "Central",
+            "end": "Rua do Seixal",
+            "time_user": 39,
+            "time_delivery": 23.38329764453961,
+            "classification": 5.0
+        },
+        "15": {
+            "id": 15,
+            "courier": "Cristina Costa",
+            "vehicle": "Carro",
+            "weight": 33,
+            "begining": "Rua do Seixal",
+            "end": "Rua do Seixal",
+            "time_user": 12,
+            "time_delivery": 0.0,
+            "classification": 4.666666666666667
         }
     }
 }

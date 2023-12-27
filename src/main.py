@@ -3,7 +3,7 @@ import sys
 from Grafo import Graph
 from Mapas import Mapas
 from Courier import Courier, CourierCatalog
-from Delivery import DeliveryCatalog
+from Delivery import Delivery, DeliveryCatalog
 from Delivered import DeliveredCatalog
 
 
@@ -76,7 +76,7 @@ def main():
                 courier_key = dc.get_courier_c(key)
 
                 for index, key in enumerate(list_of_keys):
-
+                    
                     print(f"\nA fazer a entrega {key}")
                     result_greedy = g.greedy(dc.start_d(key), dc.end_d(key))
                     result_astar = g.procura_aStar(dc.start_d(key), dc.end_d(key))
@@ -105,8 +105,10 @@ def main():
 
                     print(f"\nTempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Courier.co2_emission(result[1], dc.check_vehicle(key))
+                    co2 = Delivery.co2_emission(result[1], dc.check_vehicle(key))
                     print(f"\nNo transporte foram emitidas {co2} gramas de CO2")
+
+                    dc.price_delivery(key, result[1])
 
                     checktime = dc.check_time(key, time_of_travel)
 
