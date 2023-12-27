@@ -72,9 +72,9 @@ def main():
 
             else :
 
-                list_of_keys = iter(dc.make_more_deliveries(key))
+                list_of_keys = dc.make_more_deliveries(key)
 
-                for key in list_of_keys:
+                for index, key in enumerate(list_of_keys):
                     
                     print(f"\nA fazer a entrega {key}")
                     result_greedy = g.greedy(dc.start_d(key), dc.end_d(key))
@@ -117,9 +117,10 @@ def main():
                     stars = float(input("\nIndique de 0 a 5 a qualidade da entrega: "))
                     rank = cc.rank_courier(rank_deduction, stars, dc.get_courier_c(key))
 
+                    dc.change_start(list_of_keys[index + 1], dc.end_d(key))
+
                     ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
                     
-                    dc.change_start(next(list_of_keys), dc.end_d(key))
 
         elif saida == 9:
             cc.save("../data/courier.json")

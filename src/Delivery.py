@@ -185,4 +185,10 @@ class DeliveryCatalog(BaseModel):
     
 
     def change_start(self, key, new_start):
-        self.deliveries[key].begining = new_start
+        self.deliveries[str(key)].begining = new_start
+
+
+    def next_list(self, list):
+        for i in list:
+            if int(i) < int(len(list)):
+                return list[i+1]
