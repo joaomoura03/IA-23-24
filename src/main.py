@@ -3,7 +3,7 @@ import sys
 from Grafo import Graph
 from Mapas import Mapas
 from Courier import Courier, CourierCatalog
-from Delivery import Delivery, DeliveryCatalog
+from Delivery import DeliveryCatalog
 from Delivered import DeliveredCatalog
 
 
@@ -82,8 +82,10 @@ def main():
                     result_astar = g.procura_aStar(dc.start_d(key), dc.end_d(key))
                     result_dfs = g.procura_DFS(dc.start_d(key), dc.end_d(key), path=[], visited=set())
                     result_bfs = g.procura_BFS(dc.start_d(key), dc.end_d(key))
+                    result_uni = g.uniform_cost_search(dc.start_d(key), dc.end_d(key))
 
-                    algorithm = min([result_greedy[1], result_astar[1], result_dfs[1], result_bfs[1]])
+                    algorithm = min([result_greedy[1], result_astar[1], result_dfs[1],
+                                     result_bfs[1], result_uni[1]])
 
                     if algorithm == result_greedy[1]:
                         result = result_greedy
@@ -97,6 +99,10 @@ def main():
                     elif algorithm == result_bfs[1]:
                         result = result_bfs
                         print("\nA usar o algoritmo BFS")
+                    elif algorithm == result_uni[1]:
+                        result = result_uni
+                        print("\nA usar o algoritmo Custo Uniforme")
+
 
                     print(f"\nCaminho: {result[0]}")
                     print(f"Distância: {result[1]}")
@@ -105,7 +111,7 @@ def main():
 
                     print(f"\nTempo que demorou em minutos: {time_of_travel}")
 
-                    co2 = Delivery.co2_emission(result[1], dc.check_vehicle(key))
+                    co2 = DeliveryCatalog.co2_emission(result[1], dc.check_vehicle(key))
                     print(f"\nNo transporte foram emitidas {co2} gramas de CO2")
 
                     dc.price_delivery(key, result[1])
@@ -124,7 +130,7 @@ def main():
                         dc.change_start(list_of_keys[index + 1], dc.end_d(key))
                         dc.change_courier(list_of_keys[index + 1], courier_key)
 
-                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key))
+                    ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key), stars)
                     
 
         elif saida == 9:

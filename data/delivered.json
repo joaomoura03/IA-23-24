@@ -1,26 +1,16 @@
 {
     "delivered": {
-        "3": {
-            "id": 3,
-            "courier": "Daniel Henrique",
+        "15": {
+            "id": 15,
+            "courier": "Cristina Costa",
             "vehicle": "Carro",
-            "weight": 76,
-            "begining": "Central",
-            "end": "Rua Nova de Santa Cruz",
-            "time_user": 60,
-            "time_delivery": 30.0,
-            "classification": 4.5
-        },
-        "5": {
-            "id": 5,
-            "courier": "Francisco Afonso",
-            "vehicle": "Carro",
-            "weight": 45,
-            "begining": "Central",
-            "end": "Travessa Dom Lopes",
-            "time_user": 78,
-            "time_delivery": 35.604395604395606,
-            "classification": 4.935483870967742
+            "weight": 33,
+            "begining": "Rua do Seixal",
+            "end": "Rua do Seixal",
+            "time_user": 12,
+            "time_delivery": 0.0,
+            "classification": 4.666666666666667,
+            "classification_given": 5.0
         },
         "2": {
             "id": 2,
@@ -31,7 +21,8 @@
             "end": "Travessa Dom Lopes",
             "time_user": 23,
             "time_delivery": 34.10526315789474,
-            "classification": 4.888888888888889
+            "classification": 4.875,
+            "classification_given": 5.0
         },
         "4": {
             "id": 4,
@@ -42,51 +33,32 @@
             "end": "Avenida José Afonso",
             "time_user": 34,
             "time_delivery": 21.630901287553648,
-            "classification": 4.891891891891892
+            "classification": 4.865853658536586,
+            "classification_given": 4.5
         },
-        "7": {
-            "id": 7,
-            "courier": "Francisco Afonso",
-            "vehicle": "Bicicleta",
-            "weight": 4,
-            "begining": "Central",
-            "end": "Rua Humberto Delgado",
-            "time_user": 34,
-            "time_delivery": 31.57894736842105,
-            "classification": 4.894736842105263
-        },
-        "11": {
-            "id": 11,
-            "courier": "Francisco Afonso",
-            "vehicle": "Bicicleta",
-            "weight": 1,
-            "begining": "Rua Humberto Delgado",
-            "end": "Rua do Seixal",
-            "time_user": 90,
-            "time_delivery": 127.65957446808511,
-            "classification": 4.884615384615385
-        },
-        "10": {
-            "id": 10,
-            "courier": "Cristina Costa",
+        "3": {
+            "id": 3,
+            "courier": "Daniel Henrique",
             "vehicle": "Carro",
-            "weight": 33,
+            "weight": 76,
             "begining": "Central",
-            "end": "Rua do Seixal",
-            "time_user": 39,
-            "time_delivery": 23.38329764453961,
-            "classification": 5.0
+            "end": "Rua Nova de Santa Cruz",
+            "time_user": 60,
+            "time_delivery": 97.0754716981132,
+            "classification": 4.133333333333333,
+            "classification_given": 4.4
         },
-        "15": {
-            "id": 15,
-            "courier": "Cristina Costa",
+        "19": {
+            "id": 19,
+            "courier": "Daniel Henrique",
             "vehicle": "Carro",
-            "weight": 33,
-            "begining": "Rua do Seixal",
-            "end": "Rua do Seixal",
-            "time_user": 12,
-            "time_delivery": 0.0,
-            "classification": 4.666666666666667
+            "weight": 23,
+            "begining": "Rua Nova de Santa Cruz",
+            "end": "Rua Moura",
+            "time_user": 43,
+            "time_delivery": 134.9685534591195,
+            "classification": 4.028571428571428,
+            "classification_given": 3.9
         }
     }
 }

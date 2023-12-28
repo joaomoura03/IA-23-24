@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import math
+import heapq
 
 from queue import Queue
 from Nodo import Node
@@ -294,3 +295,27 @@ class Graph:
 
         print('Path does not exist!')
         return None
+    
+
+    def uniform_cost_search(self, start_node, end_node):
+        priority_queue = [(0, start_node, [])]  # (cost, current node, path)
+        visited = set()
+
+        while priority_queue:
+            cost, current_node, path = heapq.heappop(priority_queue)
+
+            if current_node in visited:
+                continue
+
+            visited.add(current_node)
+            path = path + [current_node]
+
+            if current_node == end_node:
+                return path, cost
+
+            for neighbor, edge_cost in self.m_graph.get(current_node, []):
+                if neighbor not in visited:
+                    new_cost = cost + edge_cost
+                    heapq.heappush(priority_queue, (new_cost, neighbor, path))
+
+        return None, math.inf

@@ -12,6 +12,7 @@ class Delivered(BaseModel):
     time_user: int
     time_delivery: float
     classification: float
+    classification_given: float
 
 
 class DeliveredCatalog(BaseModel):
@@ -32,7 +33,7 @@ class DeliveredCatalog(BaseModel):
             print(f"ID: {id}, Courier: {delivered.courier}, Vehicle: {delivered.vehicle}, Weight: {delivered.weight}, Beginning: {delivered.begining}, End: {delivered.end}, Time User: {delivered.time_user}, Time Delivery: {delivered.time_delivery}, Classification: {delivered.classification}")
 
     
-    def deliver(self, key: str, time_delivery: float, classification: float, delivered_delivery: Delivery):
+    def deliver(self, key: str, time_delivery: float, classification: float, delivered_delivery: Delivery, classification_given: float):
         if delivered_delivery:
             new_delivered = Delivered(
                 id=delivered_delivery.id,
@@ -43,7 +44,8 @@ class DeliveredCatalog(BaseModel):
                 end=delivered_delivery.end,
                 time_user=delivered_delivery.time,
                 time_delivery=time_delivery,
-                classification=classification
+                classification=classification,
+                classification_given=classification_given
             )
 
             self.delivered[key] = new_delivered

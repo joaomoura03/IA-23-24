@@ -79,20 +79,6 @@ class Delivery(BaseModel):
             end=end,
             time=time
         )
-    
-
-    def co2_emission(distance, vehicle):
-        if vehicle == "Carro":
-            gasol = distance/14
-            co2_carro = gasol*2.3
-            return co2_carro
-        elif vehicle == "Moto":
-            gasol = distance/25
-            co2_mota = gasol*0.1
-            return co2_mota
-        elif vehicle == "Bicicleta":
-            co2_bicicleta = distance*0.001
-            return co2_bicicleta
 
 
 class DeliveryCatalog(BaseModel):
@@ -169,7 +155,7 @@ class DeliveryCatalog(BaseModel):
     def remove_and_get(self, key) -> Delivery:
         return self.deliveries.pop(key, None)
     
-    
+
     def make_more_deliveries(self, key):
         new_keys = []
         new_keys.append(key)
@@ -197,11 +183,11 @@ class DeliveryCatalog(BaseModel):
                         weight_original = weight_original + delivery.weight
                         new_keys.append(key_new_delivery)
         
-        new_keys_c = sorted(list(set(new_keys)))
-        print(new_keys_c)
-        print(f"\nPode fazer mais estas encomendas em simultâneo {new_keys_c[1:]}")
-        return new_keys_c
-    
+        new_keys_int = sorted(list(map(int,(list(set(new_keys))))))
+        print(f"\nO estafeta vai fazer estas encomendas {new_keys_int}")
+        new_keys_str = list(map(str,new_keys_int))
+        return new_keys_str
+
 
     def change_start(self, key, new_start):
         self.deliveries[str(key)].begining = new_start
@@ -226,3 +212,17 @@ class DeliveryCatalog(BaseModel):
             price = BASE_PRICE + (distance * CONSUME_CAR_BY_METER) * PRICE_GASOLINE
         print(f"A viagem custou {price}$")
         return price
+    
+
+    def co2_emission(distance, vehicle):
+        if vehicle == "Carro":
+            gasol = distance/14
+            co2_carro = gasol*2.3
+            return co2_carro
+        elif vehicle == "Moto":
+            gasol = distance/25
+            co2_mota = gasol*0.1
+            return co2_mota
+        elif vehicle == "Bicicleta":
+            co2_bicicleta = distance*0.001
+            return co2_bicicleta
