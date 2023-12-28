@@ -65,13 +65,18 @@ def main():
 
         elif saida == 8:
             #Encomenda
+            print("\nDe que maneira quer definir o algoritmo de procura: ")
+            print("1- CO2")
+            print("2- Distância")
+
+            alg = int(input("\nIntroduza a sua opção: "))
+
             key = input("\nIntroduza id da encomenda: ")
 
             if key == '0':
                 print("A sair\n")
 
             else :
-
                 list_of_keys = dc.make_more_deliveries(key)
                 courier_key = dc.get_courier_c(key)
 
@@ -84,24 +89,50 @@ def main():
                     result_bfs = g.procura_BFS(dc.start_d(key), dc.end_d(key))
                     result_uni = g.uniform_cost_search(dc.start_d(key), dc.end_d(key))
 
-                    algorithm = min([result_greedy[1], result_astar[1], result_dfs[1],
-                                     result_bfs[1], result_uni[1]])
+                    co2_greedy = DeliveryCatalog.co2_emission(result_greedy[1], dc.check_vehicle(key))
+                    co2_astar = DeliveryCatalog.co2_emission(result_astar[1], dc.check_vehicle(key))
+                    co2_dfs = DeliveryCatalog.co2_emission(result_dfs[1], dc.check_vehicle(key))
+                    co2_bfs = DeliveryCatalog.co2_emission(result_bfs[1], dc.check_vehicle(key))
+                    co2_uni = DeliveryCatalog.co2_emission(result_uni[1], dc.check_vehicle(key))
 
-                    if algorithm == result_greedy[1]:
-                        result = result_greedy
-                        print("\nA usar o algoritmo Greedy")
-                    elif algorithm == result_astar[1]:
-                        result = result_astar
-                        print("\nA usar o algoritmo A*")
-                    elif algorithm == result_dfs[1]:
-                        result = result_dfs
-                        print("\nA usar o algoritmo DFS")
-                    elif algorithm == result_bfs[1]:
-                        result = result_bfs
-                        print("\nA usar o algoritmo BFS")
-                    elif algorithm == result_uni[1]:
-                        result = result_uni
-                        print("\nA usar o algoritmo Custo Uniforme")
+
+                    if alg == 1:
+                        algorithm_co2 = min([co2_greedy, co2_astar, co2_dfs, co2_bfs, co2_uni])
+
+                        if algorithm_co2 == co2_greedy:
+                            result = result_greedy
+                            print("\nA usar o algoritmo Greedy")
+                        elif algorithm_co2 == co2_astar:
+                            result = result_astar
+                            print("\nA usar o algoritmo A*")
+                        elif algorithm_co2 == co2_dfs:
+                            result = result_dfs
+                            print("\nA usar o algoritmo DFS")
+                        elif algorithm_co2 == co2_bfs:
+                            result = result_bfs
+                            print("\nA usar o algoritmo BFS")
+                        elif algorithm_co2 == co2_uni:
+                            result = result_uni
+                            print("\nA usar o algoritmo Custo Uniforme")
+
+                    elif alg == 2:
+                        algorithm = min([result_greedy[1], result_astar[1], result_dfs[1], result_bfs[1], result_uni[1]])
+
+                        if algorithm == result_greedy[1]:
+                            result = result_greedy
+                            print("\nA usar o algoritmo Greedy")
+                        elif algorithm == result_astar[1]:
+                            result = result_astar
+                            print("\nA usar o algoritmo A*")
+                        elif algorithm == result_dfs[1]:
+                            result = result_dfs
+                            print("\nA usar o algoritmo DFS")
+                        elif algorithm == result_bfs[1]:
+                            result = result_bfs
+                            print("\nA usar o algoritmo BFS")
+                        elif algorithm == result_uni[1]:
+                            result = result_uni
+                            print("\nA usar o algoritmo Custo Uniforme")
 
 
                     print(f"\nCaminho: {result[0]}")

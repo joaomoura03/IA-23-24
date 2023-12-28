@@ -219,7 +219,7 @@ class DeliveryCatalog(BaseModel):
             gasol = distance/14
             co2_carro = gasol*2.3
             return co2_carro
-        elif vehicle == "Moto":
+        elif vehicle == "Mota":
             gasol = distance/25
             co2_mota = gasol*0.1
             return co2_mota
