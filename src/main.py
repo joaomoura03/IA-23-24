@@ -5,7 +5,7 @@ from Mapas import Mapas
 from Courier import Courier, CourierCatalog
 from Delivery import DeliveryCatalog
 from Delivered import DeliveredCatalog
-from Client import ClientCatalog
+from Client import Client, ClientCatalog
 
 
 
@@ -13,21 +13,29 @@ def main():
     g = Graph()
     Mapas.populate_graph(g, sys.argv[1])
 
-    clc = ClientCatalog.load("../data/client.json")
-
     signlog = -1
     while signlog != 0:
 
-        print("\n1-LogIn")
-        print("2-SignUp")
+        print("\n1-Load")
+        print("2-LogIn")
+        print("3-SignUp")
+        print("4-Save")
         print("0-Sair")
 
         signlog = int(input("\nIntroduza a sua opção: "))
 
+
         if signlog == 1:
+            clc = ClientCatalog.load("../data/client.json")
+
+
+        elif signlog == 2:
             name = str(input("\nIntroduza o username: "))
             password = str(input("\nIntroduza o password: "))
-            clc.login(name, password)
+            login = clc.login(name, password)
+
+            if login == 0:
+                sys.exit()
 
             if name == "admin":
                 saida = -1
@@ -125,7 +133,6 @@ def main():
                                         result = result_uni
                                         print("\nA usar o algoritmo Custo Uniforme")
 
-                                print(f"Tempo demorado para encontrar o caminho: {result[2]}")
 
                                 print(f"\nCaminho: {result[0]}")
                                 print(f"Distância: {result[1]}")
@@ -161,6 +168,7 @@ def main():
                         cc.save("../data/courier.json")
                         dc.save("../data/delivery.json")
                         ddc.save("../data/delivered.json")
+
 
             else:
                 saida = -1
@@ -218,10 +226,15 @@ def main():
                         dc.save("../data/delivery.json")
                         ddc.save("../data/delivered.json")
 
-        elif signlog == 2:
+
+        elif signlog == 3:
             name = str(input("\nIntroduza o username: "))
             password = str(input("\nIntroduza o password: "))
-            clc.signup(name, password)
+            cli = Client.new_client(name, password)
+            clc.signup(cli)
+
+
+        elif signlog == 4:
             clc.save("../data/client.json")
 
 if __name__ == "__main__":

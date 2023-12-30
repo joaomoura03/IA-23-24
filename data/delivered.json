@@ -220,6 +220,84 @@
             "time_delivery": 80.06896551724138,
             "classification": 4.5,
             "classification_given": 5.0
+        },
+        "14": {
+            "id": 14,
+            "courier": "Cristina Costa",
+            "vehicle": "Carro",
+            "weight": 50,
+            "begining": "Central",
+            "end": "Rua do Seixal",
+            "time_user": 23,
+            "client": "Moura",
+            "time_delivery": 24.266666666666666,
+            "classification": 4.583333333333333,
+            "classification_given": 4.0
+        },
+        "29": {
+            "id": 29,
+            "courier": "Pedro Costa",
+            "vehicle": "Carro",
+            "weight": 34,
+            "begining": "Rua do Seixal",
+            "end": "Avenida de Coimbra",
+            "time_user": 30,
+            "client": "Moura",
+            "time_delivery": 45.708154506437765,
+            "classification": 4.5,
+            "classification_given": 5.0
+        },
+        "35": {
+            "id": 35,
+            "courier": "Daniel Henrique",
+            "vehicle": "Carro",
+            "weight": 81,
+            "begining": "Central",
+            "end": "Rua Moura",
+            "time_user": 21,
+            "client": "Primos",
+            "time_delivery": 55.41766109785203,
+            "classification": 4.119999999999999,
+            "classification_given": 5.0
+        },
+        "9": {
+            "id": 9,
+            "courier": "Cristina Costa",
+            "vehicle": "Bicicleta",
+            "weight": 2,
+            "begining": "Central",
+            "end": "Rua do Seixal",
+            "time_user": 35,
+            "client": "Moura",
+            "time_delivery": 124.09090909090908,
+            "classification": 4.571428571428571,
+            "classification_given": 5.0
+        },
+        "21": {
+            "id": 21,
+            "courier": "Daniel Henrique",
+            "vehicle": "Bicicleta",
+            "weight": 2,
+            "begining": "Central",
+            "end": "Rua Figueira da Foz",
+            "time_user": 55,
+            "client": "Moura",
+            "time_delivery": 182.04545454545453,
+            "classification": 4.154545454545454,
+            "classification_given": 5.0
+        },
+        "27": {
+            "id": 27,
+            "courier": "Paulo Rui",
+            "vehicle": "Bicicleta",
+            "weight": 3,
+            "begining": "Rua Figueira da Foz",
+            "end": "Rua Nova de Santa Cruz",
+            "time_user": 10,
+            "client": "Moura",
+            "time_delivery": 697.3170731707319,
+            "classification": 4.5,
+            "classification_given": 5.0
         }
     }
 }

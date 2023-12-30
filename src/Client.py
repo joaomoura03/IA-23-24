@@ -2,16 +2,15 @@ from pydantic import BaseModel
 
 
 class Client(BaseModel):
-    id: int
     name: str
     password: str
 
     def __str__(self):
-        return[self.id, self.name, self.password]
+        return[self.name, self.password]
     
 
-    def new_client(id: int, name, password):
-        return(Client(id=id, name=name, password=password))
+    def new_client(name, password):
+        return(Client(name=name, password=password))
     
 
 class ClientCatalog(BaseModel):
@@ -28,20 +27,16 @@ class ClientCatalog(BaseModel):
             fp.write(self.model_dump_json())
 
     
-    def signup(self, name, password):
-        keys = list(self.clients.keys())
-        if len(keys) == 0:
-            id = "1"
-        else:
-            id = str(int(keys[-1]) + 1)
-        self.clients[id] = Client.new_client(id, name, password)
+    def signup(self, c: Client):
+        self.clients[c.name] = c
 
 
-    def login(self, name, password):
-        for id, client in self.clients.items():
-            if client.name == name and client.password == password:
-                print("LogIn com sucesso!")
-            elif client.name != name:
-                print("Nome do utilizador errado!")
-            elif client.password != password:
-                print("Password errado!")
+    def login(self, username, passw):
+        for key, client in self.clients.items():
+            if self.clients[key].name == username:
+                if self.clients[key].password == passw:
+                    print("LogIn com sucesso!")
+                    return 1
+                else:
+                    print("Password errada!")
+                    return 0

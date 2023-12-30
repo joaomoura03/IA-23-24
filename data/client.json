@@ -1,14 +1,28 @@
 {
-    "client": {
-        "1": {
-            "id": 1,
+    "clients": {
+        "123": {
+            "name": "123",
+            "password": "123"
+        },
+        "admin": {
             "name": "admin",
             "password": "admin"
         },
-        "2": {
-            "id": 2,
+        "Moura": {
             "name": "Moura",
-            "password": 123
+            "password": "123"
+        },
+        "Primos": {
+            "name": "Primos",
+            "password": "123"
+        },
+        "Cracel": {
+            "name": "Cracel",
+            "password": "123"
+        },
+        "Kiko": {
+            "name": "Kiko",
+            "password": "123"
         }
     }
 }
