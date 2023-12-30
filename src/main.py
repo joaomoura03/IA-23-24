@@ -153,7 +153,9 @@ def main():
                                     dc.change_start(list_of_keys[index + 1], dc.end_d(key))
                                     dc.change_courier(list_of_keys[index + 1], courier_key)
 
-                                ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key), stars, name)
+                                client = dc.get_client_c(key)
+
+                                ddc.deliver(key, time_of_travel, rank, dc.remove_and_get(key), stars, client)
                                 
                     elif saida == 4:
                         cc.save("../data/courier.json")

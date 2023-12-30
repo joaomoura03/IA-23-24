@@ -154,6 +154,10 @@ class DeliveryCatalog(BaseModel):
         return self.deliveries[str(key)].courier
     
 
+    def get_client_c(self, key):
+        return self.deliveries[str(key)].client
+    
+
     def remove_and_get(self, key) -> Delivery:
         return self.deliveries.pop(key, None)
     

@@ -38,7 +38,7 @@ class ClientCatalog(BaseModel):
 
 
     def login(self, name, password):
-        for client in self.clients.values():
+        for id, client in self.clients.items():
             if client.name == name and client.password == password:
                 print("LogIn com sucesso!")
             elif client.name != name:
