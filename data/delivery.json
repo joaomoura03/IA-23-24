@@ -117,24 +117,6 @@
             "end": "Rua da Escola",
             "time": 23
         },
-        "18": {
-            "id": 18,
-            "courier": "Daniel Henrique",
-            "vehicle": "Carro",
-            "weight": 76,
-            "begining": "Central",
-            "end": "Rua Manuel Caldas",
-            "time": 45
-        },
-        "20": {
-            "id": 20,
-            "courier": "Paulo Rui",
-            "vehicle": "Carro",
-            "weight": 21,
-            "begining": "Central",
-            "end": "Rua do Couto",
-            "time": 32
-        },
         "21": {
             "id": 21,
             "courier": "Daniel Henrique",
@@ -206,6 +188,15 @@
             "begining": "Central",
             "end": "Rua da Coutada",
             "time": 32
+        },
+        "29": {
+            "id": 29,
+            "courier": "Pedro Costa",
+            "vehicle": "Carro",
+            "weight": 34,
+            "begining": "Central",
+            "end": "Avenida de Coimbra",
+            "time": 30
         }
     }
 }

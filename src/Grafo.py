@@ -2,6 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import math
 import heapq
+import time
 
 from queue import Queue
 from Nodo import Node
@@ -132,12 +133,15 @@ class Graph:
 
 
     def procura_DFS(self, start, end, path=[], visited=set()):
+        start_time = time.time()
         path.append(start)
         visited.add(start)
 
         if start == end:
             custoT = self.calcula_custo(path)
-            return (path, custoT)
+            end_time = time.time()
+            elapsed_time = end_time - start_time
+            return (path, custoT, elapsed_time)
         for (adjacente, peso) in self.m_graph[start]:
             if adjacente not in visited:
                 resultado = self.procura_DFS(adjacente, end, path, visited)
@@ -148,6 +152,7 @@ class Graph:
 
 
     def procura_BFS(self, start, end):
+        start_time = time.time()
         # definir nodos visitados para evitar ciclos
         visited = set()
         fila = Queue()
@@ -181,7 +186,9 @@ class Graph:
             path.reverse()
             # funçao calcula custo caminho
             custo = self.calcula_custo(path)
-        return (path, custo)
+            end_time = time.time()
+            elapsed_time = end_time - start_time
+        return (path, custo, elapsed_time)
 
 
     def getNeighbours(self, nodo):
@@ -192,6 +199,7 @@ class Graph:
 
 
     def greedy(self, start, end):
+        start_time = time.time()
         open_list = set([start])
         closed_list = set([])
 
@@ -220,7 +228,9 @@ class Graph:
 
                 reconst_path.reverse()
 
-                return (reconst_path, self.calcula_custo(reconst_path))
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                return (reconst_path, self.calcula_custo(reconst_path), elapsed_time)
 
             for (m, weight) in self.getNeighbours(n):
                 if m not in open_list and m not in closed_list:
@@ -243,6 +253,7 @@ class Graph:
 
 
     def procura_aStar(self, start, end):
+        start_time = time.time()
         open_list = {start}
         closed_list = set([])
 
@@ -273,7 +284,9 @@ class Graph:
 
                 reconst_path.reverse()
 
-                return (reconst_path, self.calcula_custo(reconst_path))
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                return (reconst_path, self.calcula_custo(reconst_path), elapsed_time)
 
             for (m, weight) in self.getNeighbours(n):
                 if m not in open_list and m not in closed_list:
@@ -298,6 +311,7 @@ class Graph:
     
 
     def uniform_cost_search(self, start_node, end_node):
+        start_time = time.time()
         priority_queue = [(0, start_node, [])]  # (cost, current node, path)
         visited = set()
 
@@ -311,7 +325,9 @@ class Graph:
             path = path + [current_node]
 
             if current_node == end_node:
-                return path, cost
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                return path, cost, elapsed_time
 
             for neighbor, edge_cost in self.m_graph.get(current_node, []):
                 if neighbor not in visited:

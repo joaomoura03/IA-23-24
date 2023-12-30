@@ -36,7 +36,7 @@ class CourierCatalog(BaseModel):
 
     def print(self):
         for name, courier in self.couriers.items():
-            print(f"Name: {name}, Classification: {courier.classification}, Total: {courier.total}, Number: {courier.total}")
+            print(f"Name: {name}, Classification: {courier.classification}")
 
 
     def load(file_path):

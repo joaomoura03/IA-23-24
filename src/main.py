@@ -18,7 +18,7 @@ def main():
         print("3-Imprime entregas")
         print("4-Imprime ranking")
         print("5-Imprime entregas entregues")
-        print("6-Criar estafeta")
+        print("6-Registar estafeta")
         print("7-Criar encomenda")
         print("8-Realizar encomenda")
         print("9-Save")
@@ -83,6 +83,7 @@ def main():
                 for index, key in enumerate(list_of_keys):
                     
                     print(f"\nA fazer a entrega {key}")
+
                     result_greedy = g.greedy(dc.start_d(key), dc.end_d(key))
                     result_astar = g.procura_aStar(dc.start_d(key), dc.end_d(key))
                     result_dfs = g.procura_DFS(dc.start_d(key), dc.end_d(key), path=[], visited=set())
@@ -134,6 +135,7 @@ def main():
                             result = result_uni
                             print("\nA usar o algoritmo Custo Uniforme")
 
+                    print(f"Tempo demorado para encontrar o caminho: {result[2]}")
 
                     print(f"\nCaminho: {result[0]}")
                     print(f"Distância: {result[1]}")

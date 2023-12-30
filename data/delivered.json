@@ -59,6 +59,30 @@
             "time_delivery": 134.9685534591195,
             "classification": 4.028571428571428,
             "classification_given": 3.9
+        },
+        "18": {
+            "id": 18,
+            "courier": "Daniel Henrique",
+            "vehicle": "Carro",
+            "weight": 76,
+            "begining": "Central",
+            "end": "Rua Manuel Caldas",
+            "time_user": 45,
+            "time_delivery": 45.566037735849065,
+            "classification": 4.0874999999999995,
+            "classification_given": 5.0
+        },
+        "20": {
+            "id": 20,
+            "courier": "Daniel Henrique",
+            "vehicle": "Carro",
+            "weight": 21,
+            "begining": "Rua Manuel Caldas",
+            "end": "Rua do Couto",
+            "time_user": 32,
+            "time_delivery": 84.67640918580375,
+            "classification": 4.0777777777777775,
+            "classification_given": 4.5
         }
     }
 }
