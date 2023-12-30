@@ -8,6 +8,7 @@
             "begining": "Rua do Seixal",
             "end": "Rua do Seixal",
             "time_user": 12,
+            "client": "Moura",
             "time_delivery": 0.0,
             "classification": 4.666666666666667,
             "classification_given": 5.0
@@ -20,6 +21,7 @@
             "begining": "Central",
             "end": "Travessa Dom Lopes",
             "time_user": 23,
+            "client": "Moura",
             "time_delivery": 34.10526315789474,
             "classification": 4.875,
             "classification_given": 5.0
@@ -32,6 +34,7 @@
             "begining": "Travessa Dom Lopes",
             "end": "Avenida José Afonso",
             "time_user": 34,
+            "client": "Moura",
             "time_delivery": 21.630901287553648,
             "classification": 4.865853658536586,
             "classification_given": 4.5
@@ -44,6 +47,7 @@
             "begining": "Central",
             "end": "Rua Nova de Santa Cruz",
             "time_user": 60,
+            "client": "Moura",
             "time_delivery": 97.0754716981132,
             "classification": 4.133333333333333,
             "classification_given": 4.4
@@ -56,6 +60,7 @@
             "begining": "Rua Nova de Santa Cruz",
             "end": "Rua Moura",
             "time_user": 43,
+            "client": "Moura",
             "time_delivery": 134.9685534591195,
             "classification": 4.028571428571428,
             "classification_given": 3.9
@@ -68,6 +73,7 @@
             "begining": "Central",
             "end": "Rua Manuel Caldas",
             "time_user": 45,
+            "client": "Moura",
             "time_delivery": 45.566037735849065,
             "classification": 4.0874999999999995,
             "classification_given": 5.0
@@ -80,9 +86,127 @@
             "begining": "Rua Manuel Caldas",
             "end": "Rua do Couto",
             "time_user": 32,
+            "client": "Moura",
             "time_delivery": 84.67640918580375,
             "classification": 4.0777777777777775,
             "classification_given": 4.5
+        },
+        "7": {
+            "id": 7,
+            "courier": "Francisco Afonso",
+            "vehicle": "Bicicleta",
+            "weight": 4,
+            "begining": "Central",
+            "end": "Rua Humberto Delgado",
+            "time_user": 34,
+            "client": "Moura",
+            "time_delivery": 31.57894736842105,
+            "classification": 4.869047619047619,
+            "classification_given": 5.0
+        },
+        "11": {
+            "id": 11,
+            "courier": "Francisco Afonso",
+            "vehicle": "Bicicleta",
+            "weight": 1,
+            "begining": "Rua Humberto Delgado",
+            "end": "Rua do Seixal",
+            "time_user": 90,
+            "client": "Moura",
+            "time_delivery": 127.65957446808511,
+            "classification": 4.8604651162790695,
+            "classification_given": 5.0
+        },
+        "8": {
+            "id": 8,
+            "courier": "João Moura",
+            "vehicle": "Bicicleta",
+            "weight": 2,
+            "begining": "Central",
+            "end": "Rua dos Padrões",
+            "time_user": 12,
+            "client": "Moura",
+            "time_delivery": 83.86363636363636,
+            "classification": 4.722222222222222,
+            "classification_given": 4.5
+        },
+        "5": {
+            "id": 5,
+            "courier": "Francisco Afonso",
+            "vehicle": "Carro",
+            "weight": 45,
+            "begining": "Central",
+            "end": "Travessa Dom Lopes",
+            "time_user": 78,
+            "client": "Moura",
+            "time_delivery": 35.604395604395606,
+            "classification": 4.863636363636363,
+            "classification_given": 5.0
+        },
+        "10": {
+            "id": 10,
+            "courier": "Cristina Costa",
+            "vehicle": "Carro",
+            "weight": 33,
+            "begining": "Travessa Dom Lopes",
+            "end": "Rua do Seixal",
+            "time_user": 39,
+            "client": "Moura",
+            "time_delivery": 11.306209850107066,
+            "classification": 4.75,
+            "classification_given": 5.0
+        },
+        "26": {
+            "id": 26,
+            "courier": "Cristina Costa",
+            "vehicle": "Carro",
+            "weight": 21,
+            "begining": "Rua do Seixal",
+            "end": "Rua Manuel Caldas",
+            "time_user": 55,
+            "client": "Moura",
+            "time_delivery": 36.07515657620041,
+            "classification": 4.8,
+            "classification_given": 5.0
+        },
+        "13": {
+            "id": 13,
+            "courier": "João Moura",
+            "vehicle": "Carro",
+            "weight": 45,
+            "begining": "Central",
+            "end": "Rua do Seixal",
+            "time_user": 78,
+            "client": "Moura",
+            "time_delivery": 23.999999999999996,
+            "classification": 4.72972972972973,
+            "classification_given": 5.0
+        },
+        "22": {
+            "id": 22,
+            "courier": "Paulo Rui",
+            "vehicle": "Carro",
+            "weight": 23,
+            "begining": "Rua do Seixal",
+            "end": "Rua Moura",
+            "time_user": 21,
+            "client": "Moura",
+            "time_delivery": 25.78616352201258,
+            "classification": 4.5,
+            "classification_given": 5.0
+        },
+        "28": {
+            "id": 28,
+            "courier": "Francisco Afonso",
+            "vehicle": "Carro",
+            "weight": 72,
+            "begining": "Central",
+            "end": "Rua da Coutada",
+            "time_user": 32,
+            "client": "admin",
+            "time_delivery": 104.1588785046729,
+            "classification": 4.855555555555555,
+            "classification_given": 5.0
         }
     }
 }

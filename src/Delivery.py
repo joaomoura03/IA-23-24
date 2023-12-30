@@ -14,6 +14,7 @@ class Delivery(BaseModel):
     begining: str = 'Central'
     end: str
     time: int
+    client: str
 
     def __str__(self):
         return[self.id, self.courier, self.vehicle, self.weight, self.begining, self.end, self.time]
@@ -62,7 +63,7 @@ class Delivery(BaseModel):
 
 
     #Função que cria uma encomenda
-    def new_delivery(id: int, cc, weight, end, time):
+    def new_delivery(id: int, cc, weight, end, time, client):
         list_of_couriers = list(cc.couriers.keys())
 
         if weight <= 5:
@@ -77,7 +78,8 @@ class Delivery(BaseModel):
             vehicle=vehicle,
             weight=weight,
             end=end,
-            time=time
+            time=time,
+            client=client
         )
 
 
@@ -86,16 +88,16 @@ class DeliveryCatalog(BaseModel):
 
     def print(self):
         for _id, delivery in self.deliveries.items():
-            print(f"ID: {_id}, Courier: {delivery.courier}, Vehicle: {delivery.vehicle}, Weight: {delivery.weight}, Beginning: {delivery.begining}, End: {delivery.end}, Time: {delivery.time}")
+            print(f"ID: {_id}, Courier: {delivery.courier}, Vehicle: {delivery.vehicle}, Weight: {delivery.weight}, Beginning: {delivery.begining}, End: {delivery.end}, Time: {delivery.time}, Client: {delivery.client}")
 
 
-    def create_delivery(self, cc, weight, end, time):
+    def create_delivery(self, cc, weight, end, time, client):
         keys = list(self.deliveries.keys())
         if len(keys) == 0:
             id = "1"
         else:
             id = str(int(keys[-1]) + 1)
-        self.deliveries[id] = Delivery.new_delivery(id, cc, weight, end, time)
+        self.deliveries[id] = Delivery.new_delivery(id, cc, weight, end, time, client)
 
 
     def load(file_path):

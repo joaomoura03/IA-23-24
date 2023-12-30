@@ -1,0 +1,14 @@
+{
+    "client": {
+        "1": {
+            "id": 1,
+            "name": "admin",
+            "password": "admin"
+        },
+        "2": {
+            "id": 2,
+            "name": "Moura",
+            "password": 123
+        }
+    }
+}
