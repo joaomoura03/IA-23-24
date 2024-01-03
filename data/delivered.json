@@ -298,6 +298,45 @@
             "time_delivery": 697.3170731707319,
             "classification": 4.5,
             "classification_given": 5.0
+        },
+        "39": {
+            "id": 39,
+            "courier": "Jukes",
+            "vehicle": "Carro",
+            "weight": 99,
+            "begining": "Central",
+            "end": "Rua da Coutada",
+            "time_user": 45,
+            "client": "Moura",
+            "time_delivery": 111.17206982543641,
+            "classification": 4.5,
+            "classification_given": 5.0
+        },
+        "1": {
+            "id": 1,
+            "courier": "João Moura",
+            "vehicle": "Mota",
+            "weight": 9,
+            "begining": "Central",
+            "end": "Rua do Seixal",
+            "time_user": 12,
+            "client": "Moura",
+            "time_delivery": 35.80327868852459,
+            "classification": 4.697368421052632,
+            "classification_given": 4.0
+        },
+        "24": {
+            "id": 24,
+            "courier": "Pedro Costa",
+            "vehicle": "Mota",
+            "weight": 11,
+            "begining": "Rua do Seixal",
+            "end": "Avenida de Coimbra",
+            "time_user": 21,
+            "client": "Moura",
+            "time_delivery": 72.20338983050847,
+            "classification": 4.333333333333333,
+            "classification_given": 4.5
         }
     }
 }

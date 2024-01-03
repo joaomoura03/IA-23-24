@@ -1,15 +1,5 @@
 {
     "deliveries": {
-        "1": {
-            "id": 1,
-            "courier": "João Moura",
-            "vehicle": "Mota",
-            "weight": 9,
-            "begining": "Central",
-            "end": "Rua do Seixal",
-            "time": 12,
-            "client": "Moura"
-        },
         "6": {
             "id": 6,
             "courier": "Daniel Henrique",
@@ -58,16 +48,6 @@
             "begining": "Central",
             "end": "Rua da Escola",
             "time": 30,
-            "client": "Moura"
-        },
-        "24": {
-            "id": 24,
-            "courier": "Pedro Costa",
-            "vehicle": "Mota",
-            "weight": 11,
-            "begining": "Central",
-            "end": "Avenida de Coimbra",
-            "time": 21,
             "client": "Moura"
         },
         "25": {
@@ -150,14 +130,14 @@
             "time": 45,
             "client": "Moura"
         },
-        "39": {
-            "id": 39,
-            "courier": "Jukes",
-            "vehicle": "Carro",
-            "weight": 99,
+        "40": {
+            "id": 40,
+            "courier": "Francisco Afonso",
+            "vehicle": "Bicicleta",
+            "weight": 1,
             "begining": "Central",
-            "end": "Rua da Coutada",
-            "time": 45,
+            "end": "Rua do Couto",
+            "time": 30,
             "client": "Moura"
         }
     }

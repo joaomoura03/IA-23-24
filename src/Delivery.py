@@ -169,7 +169,7 @@ class DeliveryCatalog(BaseModel):
             weight_original = self.deliveries[key].weight
             if weight_original < 5:
                 for key_new_delivery, delivery in self.deliveries.items():
-                    if delivery.vehicle == "Bicicleta" and delivery.weight + weight_original <= 5:
+                    if delivery.vehicle == "Bicicleta" and delivery.weight + weight_original <= 5 and key != key_new_delivery:
                         weight_original = weight_original + delivery.weight
                         new_keys.append(key_new_delivery)
 
@@ -177,7 +177,7 @@ class DeliveryCatalog(BaseModel):
             weight_original = self.deliveries[key].weight
             if weight_original < 20:
                 for key_new_delivery, delivery in self.deliveries.items():
-                    if delivery.vehicle == "Mota" and delivery.weight + weight_original <= 20:
+                    if delivery.vehicle == "Mota" and delivery.weight + weight_original <= 20 and key != key_new_delivery:
                         weight_original = weight_original + delivery.weight
                         new_keys.append(key_new_delivery)
 
@@ -185,7 +185,7 @@ class DeliveryCatalog(BaseModel):
             weight_original = self.deliveries[key].weight
             if weight_original < 100:
                 for key_new_delivery, delivery in self.deliveries.items():
-                    if delivery.vehicle == "Carro" and delivery.weight + weight_original <= 100:
+                    if delivery.vehicle == "Carro" and delivery.weight + weight_original <= 100 and key != key_new_delivery:
                         weight_original = weight_original + delivery.weight
                         new_keys.append(key_new_delivery)
         

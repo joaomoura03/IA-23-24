@@ -23,6 +23,10 @@
         "Kiko": {
             "name": "Kiko",
             "password": "123"
+        },
+        "Ruben": {
+            "name": "Ruben",
+            "password": "123"
         }
     }
 }

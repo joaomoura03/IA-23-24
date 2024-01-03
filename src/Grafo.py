@@ -141,7 +141,7 @@ class Graph:
             custoT = self.calcula_custo(path)
             end_time = time.time()
             elapsed_time = end_time - start_time
-            return (path, custoT, elapsed_time)
+            return (path, custoT, elapsed_time, visited)
         for (adjacente, peso) in self.m_graph[start]:
             if adjacente not in visited:
                 resultado = self.procura_DFS(adjacente, end, path, visited)
@@ -152,6 +152,7 @@ class Graph:
 
 
     def procura_BFS(self, start, end):
+        start_time = time.time()
         # definir nodos visitados para evitar ciclos
         visited = set()
         fila = Queue()
@@ -185,7 +186,10 @@ class Graph:
             path.reverse()
             # funçao calcula custo caminho
             custo = self.calcula_custo(path)
-        return (path, custo)
+
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        return (path, custo, elapsed_time, visited)
 
 
     def getNeighbours(self, nodo):
@@ -193,65 +197,50 @@ class Graph:
         for (adjacente, peso) in self.m_graph[nodo]:
             lista.append((adjacente, peso))
         return lista
-
+    
 
     def greedy(self, start, end):
-            # open_list é uma lista de nodos visitados, mas com vizinhos
-            # que ainda não foram todos visitados, começa com o  start
-            # closed_list é uma lista de nodos visitados
-            # e todos os seus vizinhos também já o foram
-            open_list = set([start])
-            closed_list = set([])
+        start_time = time.time()
+        open_list = set([start])
+        closed_list = set([])
+        visited_nodes = set([])
 
-            # parents é um dicionário que mantém o antecessor de um nodo
-            # começa com start
-            parents = {}
-            parents[start] = start
+        parents = {}
+        parents[start] = start
 
-            while len(open_list) > 0:
-                n = None
+        while len(open_list) > 0:
+            n = None
 
-                # encontra nodo com a menor heuristica
-                for v in open_list:
-                    if n == None or self.m_h[v] < self.m_h[n]:
-                        n = v
+            for v in open_list:
+                if n is None or self.m_h[v] < self.m_h[n]:
+                    n = v
 
-                if n == None:
-                    print('Path does not exist!')
-                    return None
+            if n is None:
+                print('Path does not exist!')
+                return None
 
-                # se o nodo corrente é o destino
-                # reconstruir o caminho a partir desse nodo até ao start
-                # seguindo o antecessor
-                if n == end:
-                    reconst_path = []
+            if n == end:
+                reconst_path = []
+                while parents[n] != n:
+                    reconst_path.append(n)
+                    n = parents[n]
+                reconst_path.append(start)
+                reconst_path.reverse()
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                return (reconst_path, self.calcula_custo(reconst_path), elapsed_time, visited_nodes)
 
-                    while parents[n] != n:
-                        reconst_path.append(n)
-                        n = parents[n]
+            for (m, weight) in self.getNeighbours(n):
+                if m not in open_list and m not in closed_list:
+                    open_list.add(m)
+                    parents[m] = n
+                    visited_nodes.add(m)
 
-                    reconst_path.append(start)
+            open_list.remove(n)
+            closed_list.add(n)
 
-                    reconst_path.reverse()
-
-                    return (reconst_path, self.calcula_custo(reconst_path))
-                # para todos os vizinhos  do nodo corrente
-                
-                for (m, weight) in self.getNeighbours(n):
-                    # Se o nodo corrente nao esta na open nem na closed list
-                    # adiciona-lo à open_list e marcar o antecessor
-                    if m not in open_list and m not in closed_list:
-                        open_list.add(m)
-                        parents[m] = n
-
-
-                # remover n da open_list e adiciona-lo à closed_list
-                # porque todos os seus vizinhos foram inspecionados
-                open_list.remove(n)
-                closed_list.add(n)
-
-            print('Path does not exist!')
-            return None
+        print('Path does not exist!')
+        return None
 
 
     def getH(self, nodo):
@@ -259,25 +248,28 @@ class Graph:
             return 1000
         else:
             return (self.m_h[nodo])
-
+    
 
     def procura_aStar(self, start, end):
+        start_time = time.time()
         open_list = {start}
         closed_list = set([])
 
         g = {}
-
         g[start] = 0
 
         parents = {}
         parents[start] = start
+
+        visited_nodes = set([])
+
         while len(open_list) > 0:
             n = None
 
             for v in open_list:
-                if n == None or g[v] + self.getH(v) < g[n] + self.getH(n):
+                if n is None or g[v] + self.getH(v) < g[n] + self.getH(n):
                     n = v
-            if n == None:
+            if n is None:
                 print('Path does not exist!')
                 return None
 
@@ -292,13 +284,16 @@ class Graph:
 
                 reconst_path.reverse()
 
-                return (reconst_path, self.calcula_custo(reconst_path))
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                return (reconst_path, self.calcula_custo(reconst_path), elapsed_time, visited_nodes)
 
             for (m, weight) in self.getNeighbours(n):
                 if m not in open_list and m not in closed_list:
                     open_list.add(m)
                     parents[m] = n
                     g[m] = g[n] + weight
+                    visited_nodes.add(m)
 
                 else:
                     if g[m] > g[n] + weight:
@@ -317,8 +312,10 @@ class Graph:
     
 
     def uniform_cost_search(self, start_node, end_node):
+        start_time = time.time()
         priority_queue = [(0, start_node, [])]  # (cost, current node, path)
         visited = set()
+        visited_nodes = set()  # New set to keep track of all visited nodes
 
         while priority_queue:
             cost, current_node, path = heapq.heappop(priority_queue)
@@ -327,14 +324,17 @@ class Graph:
                 continue
 
             visited.add(current_node)
+            visited_nodes.add(current_node)  # Add the visited node to the set
             path = path + [current_node]
 
             if current_node == end_node:
-                return path, cost
+                return path, cost, visited_nodes
 
             for neighbor, edge_cost in self.m_graph.get(current_node, []):
                 if neighbor not in visited:
                     new_cost = cost + edge_cost
                     heapq.heappush(priority_queue, (new_cost, neighbor, path))
 
-        return None, math.inf
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        return None, math.inf, elapsed_time, visited_nodes

@@ -79,7 +79,7 @@ def main():
                             courier_key = dc.get_courier_c(key)
 
                             for index, key in enumerate(list_of_keys):
-                                
+                                print(courier_key)
                                 print(f"\nA fazer a entrega {key}")
 
                                 result_greedy = g.greedy(dc.start_d(key), dc.end_d(key))
@@ -136,6 +136,8 @@ def main():
 
                                 print(f"\nCaminho: {result[0]}")
                                 print(f"Distância: {result[1]}")
+                                print(f"Tempo para chegar ao resultado: {result[2]}")
+                                print(f"Visitados: {result[3]}")
 
                                 time_of_travel = dc.time_of_travel(key, result[1])
 
