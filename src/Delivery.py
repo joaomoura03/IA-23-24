@@ -190,9 +190,8 @@ class DeliveryCatalog(BaseModel):
                         new_keys.append(key_new_delivery)
         
         new_keys_int = sorted(list(map(int,(list(set(new_keys))))))
-        print(f"\nO estafeta vai fazer estas encomendas {new_keys_int}")
-        new_keys_str = list(map(str,new_keys_int))
-        return new_keys_str
+        print(f"\nO estafeta vai fazer estas encomendas {sorted(list(set(new_keys)))}")
+        return sorted(list(set(new_keys)))
 
 
     def change_start(self, key, new_start):

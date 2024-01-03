@@ -79,7 +79,6 @@ def main():
                             courier_key = dc.get_courier_c(key)
 
                             for index, key in enumerate(list_of_keys):
-                                print(courier_key)
                                 print(f"\nA fazer a entrega {key}")
 
                                 result_greedy = g.greedy(dc.start_d(key), dc.end_d(key))
@@ -160,7 +159,9 @@ def main():
 
                                 if index < len(list_of_keys)-1:
                                     dc.change_start(list_of_keys[index + 1], dc.end_d(key))
-                                    dc.change_courier(list_of_keys[index + 1], courier_key)
+
+                                for item in list_of_keys:
+                                    dc.change_courier(list_of_keys[index], courier_key)
 
                                 client = dc.get_client_c(key)
 
