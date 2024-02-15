@@ -27,6 +27,14 @@
         "Ruben": {
             "name": "Ruben",
             "password": "123"
+        },
+        "Roberto": {
+            "name": "Roberto",
+            "password": "123"
+        },
+        "Cesar": {
+            "name": "Cesar",
+            "password": "123"
         }
     }
 }

@@ -337,6 +337,45 @@
             "time_delivery": 72.20338983050847,
             "classification": 4.333333333333333,
             "classification_given": 4.5
+        },
+        "17": {
+            "id": 17,
+            "courier": "Paulo Rui",
+            "vehicle": "Carro",
+            "weight": 44,
+            "begining": "Central",
+            "end": "Rua da Escola",
+            "time_user": 23,
+            "client": "Moura",
+            "time_delivery": 37.5,
+            "classification": 4.754545454545455,
+            "classification_given": 5.0
+        },
+        "36": {
+            "id": 36,
+            "courier": "Paulo Rui",
+            "vehicle": "Carro",
+            "weight": 21,
+            "begining": "Rua da Escola",
+            "end": "Rua do Seixal",
+            "time_user": 22,
+            "client": "Primos",
+            "time_delivery": 12.901878914405009,
+            "classification": 4.444444444444445,
+            "classification_given": 4.0
+        },
+        "38": {
+            "id": 38,
+            "courier": "Paulo Rui",
+            "vehicle": "Carro",
+            "weight": 22,
+            "begining": "Rua do Seixal",
+            "end": "Rua da Coutada",
+            "time_user": 45,
+            "client": "Moura",
+            "time_delivery": 70.418410041841,
+            "classification": 4.166666666666667,
+            "classification_given": 4.0
         }
     }
 }
